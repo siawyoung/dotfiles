@@ -174,6 +174,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 let g:indentLine_color_term = 220
 
 " Gutentags
+let g:gutentags_cache_dir = '~/.config/nvim/tags/'
 let g:gutentags_exclude = ['node_modules', 'env']
 
 " fzf setup
