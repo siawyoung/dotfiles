@@ -25,8 +25,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'myint/syntastic-extras'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-"Bundle 'kien/ctrlp.vim'
-"Bundle 'tacahiroy/ctrlp-funky'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'rking/ag.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'ntpeters/vim-better-whitespace'
@@ -39,6 +38,7 @@ Plugin 'yggdroot/indentline'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'junegunn/fzf.vim'
 Plugin 'ludovicchabant/vim-gutentags'
+
 " Language specific plugins
 Bundle 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
@@ -122,6 +122,7 @@ set hlsearch
 set ignorecase
 set smartcase
 set lazyredraw
+set ttyfast
 " escape to cancel search highlights
 nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
 " remove whitespace on save
