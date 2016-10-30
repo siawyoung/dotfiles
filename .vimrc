@@ -157,7 +157,7 @@ let g:syntastic_check_on_wq = 0
 
 " NERDTree
 " Toggle NERDTree with Ctrl-N
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeFocusToggle<CR>
 " Show hidden files
 let NERDTreeShowHidden=1
 
