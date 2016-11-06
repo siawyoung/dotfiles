@@ -29,7 +29,7 @@ POWERLEVEL9K_STATUS_VERBOSE=false
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir pyenv vcs background_jobs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status zsh_showStatus)
 
 # Uncomment the following line to use case-sensitive completion.
@@ -116,6 +116,8 @@ alias g="git"
 alias vim="nvim"
 alias d="docker"
 alias dc="docker-compose"
+alias td="tmux detach"
+alias ta="tmux attach -t"
 
 # pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
