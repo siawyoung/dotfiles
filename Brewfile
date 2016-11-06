@@ -84,6 +84,7 @@ brew 'reattach-to-user-namespace'
 brew 'redis', restart_service: true
 brew 'rethinkdb'
 brew 'saltstack'
+brew 'shpotify'
 brew 'sip'
 brew 'smartmontools'
 brew 'the_silver_searcher'
