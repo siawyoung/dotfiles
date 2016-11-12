@@ -44,6 +44,7 @@ Bundle 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'fatih/vim-go'
+Plugin 'elixir-lang/vim-elixir'
 
 call vundle#end()
 filetype plugin indent on
