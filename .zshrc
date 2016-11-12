@@ -110,6 +110,8 @@ export EDITOR="$VISUAL"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zshconfig="vim ~/.zshrc"
 alias rzsh="source ~/.zshrc"
+alias vimconfig="vim ~/.vimrc"
+alias tmuxconfig="vim ~/.tmux.conf"
 alias o="open"
 alias x="exit"
 alias g="git"
@@ -118,6 +120,9 @@ alias d="docker"
 alias dc="docker-compose"
 alias td="tmux detach"
 alias ta="tmux attach -t"
+
+# docker
+eval $(docker-machine env default)
 
 # pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
