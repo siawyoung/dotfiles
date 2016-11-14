@@ -162,6 +162,7 @@ let g:syntastic_check_on_wq = 0
 map <C-n> :NERDTreeTabsToggle<CR>
 " Show hidden files
 let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.pyc$']
 
 " Ag
 " Always start searching from project root, not cwd
