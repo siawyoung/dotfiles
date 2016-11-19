@@ -32,6 +32,9 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir pyenv vcs background_jobs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status zsh_showStatus)
 
+# add 256 colour support
+export TERM="xterm-256color"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
