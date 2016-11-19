@@ -45,6 +45,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'fatih/vim-go'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'raichoo/purescript-vim'
 
 call vundle#end()
 filetype plugin indent on
