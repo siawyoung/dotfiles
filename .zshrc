@@ -126,6 +126,10 @@ alias eval_default="eval \$(docker-machine env default)"
 alias td="tmux detach"
 alias ta="tmux attach -t"
 
+# Yarn config
+# Add Yarn global binaries path to PATH
+export PATH="$PATH:`yarn global bin`"
+
 # pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
