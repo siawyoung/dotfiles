@@ -131,6 +131,11 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 """ Plugin specific settings"""
 """""""""""""""""""""""""""""""
+
+"fugitive
+"Set diff as vertical split instead of horizontal
+set diffopt+=vertical
+
 "airline
 let g:airline_theme = 'tender'
 let g:airline_left_sep=''
