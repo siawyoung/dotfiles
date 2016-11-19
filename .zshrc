@@ -134,7 +134,9 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # golang config
 export GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
 
 # set all locales to UTF8
 export LANG="en_US.UTF-8"
