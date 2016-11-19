@@ -121,11 +121,10 @@ alias g="git"
 alias vim="nvim"
 alias d="docker"
 alias dc="docker-compose"
+alias dm="docker-machine"
+alias eval_default="eval \$(docker-machine env default)"
 alias td="tmux detach"
 alias ta="tmux attach -t"
-
-# docker
-eval $(docker-machine env default)
 
 # pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
