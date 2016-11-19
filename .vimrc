@@ -83,12 +83,14 @@ let mapleader = "\<Space>"
 " Map <leader>w to save file
 nnoremap <Leader>w :w<CR>
 " Tie zz after all vertical navigation to force centering
-" It's still buggy when editing text near the end of a file
-" but can't be bothered to fix
-:nnoremap j jzz
-:nnoremap k kzz
-:nnoremap <C-d> <C-d>zz
-:nnoremap <C-u> <C-u>zz
+nnoremap <C-U> 11kzz
+nnoremap <C-D> 11jzz
+nnoremap j jzz
+nnoremap k kzz
+nnoremap # #zz
+nnoremap * *zz
+nnoremap n nzz
+nnoremap N Nzz
 " Cycle through tabs with a and s, as well as numbered switching
 nnoremap <Leader>a gT
 nnoremap <Leader>s gt
@@ -117,8 +119,6 @@ set number
 set nowritebackup
 set noswapfile
 set nobackup
-" Set scrolloff to a super high value to center cursor in vertical center
-set scrolloff=999
 " highlight search result
 set hlsearch
 set ignorecase
