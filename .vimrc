@@ -119,6 +119,10 @@ set number
 set nowritebackup
 set noswapfile
 set nobackup
+" Remove delay for ESC
+set timeoutlen=1000 ttimeoutlen=0
+" set relative line numbers
+set relativenumber
 " highlight search result
 set hlsearch
 set ignorecase
