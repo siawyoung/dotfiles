@@ -3,6 +3,7 @@
         {
             "devices": [
                 {
+                    "disable_built_in_keyboard_if_exists": true,
                     "identifiers": {
                         "is_keyboard": true,
                         "is_pointing_device": false,
@@ -13,11 +14,23 @@
                     "keyboard_type": 40
                 },
                 {
+                    "disable_built_in_keyboard_if_exists": false,
                     "identifiers": {
                         "is_keyboard": true,
                         "is_pointing_device": false,
                         "product_id": 256,
                         "vendor_id": 2131
+                    },
+                    "ignore": true,
+                    "keyboard_type": 0
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 629,
+                        "vendor_id": 1452
                     },
                     "ignore": true,
                     "keyboard_type": 0
