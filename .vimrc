@@ -173,6 +173,8 @@ map <C-n> :NERDTreeTabsToggle<CR>
 " Show hidden files
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.pyc$']
+" Add keyboard shortcut for revealing current file in NERDTree
+nmap ,n :NERDTreeFind<CR>
 
 " Ag
 " Always start searching from project root, not cwd
