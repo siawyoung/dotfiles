@@ -1,53 +1,47 @@
 if !has('nvim')
     set nocompatible
 endif
-set hidden
-syntax on
-filetype off
 
-set rtp+=~/.vim/Bundle/Vundle.vim
-call vundle#rc()
-
-" Let Vundle manage Vundle
-Bundle 'gmarik/Vundle.vim'
+call plug#begin('~/.local/share/nvim/plugged')
 
 """Colour scheme
-Plugin 'jacoborus/tender'
+Plug 'jacoborus/tender'
 
 """ list of Plugins
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-sleuth'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Bundle 'scrooloose/syntastic'
-Bundle 'myint/syntastic-extras'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Bundle 'rking/ag.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'ervandew/supertab'
-Plugin 'terryma/vim-expand-region'
-Plugin 'mattn/emmet-vim'
-Plugin 'yggdroot/indentline'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'junegunn/fzf.vim'
-Plugin 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sleuth'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/syntastic'
+Plug 'myint/syntastic-extras'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'rking/ag.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdcommenter'
+Plug 'ervandew/supertab'
+Plug 'terryma/vim-expand-region'
+Plug 'mattn/emmet-vim'
+Plug 'yggdroot/indentline'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/fzf.vim'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Language specific plugins
-Bundle 'nvie/vim-flake8'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'fatih/vim-go'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'raichoo/purescript-vim'
+Plug 'nvie/vim-flake8'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'fatih/vim-go'
+Plug 'elixir-lang/vim-elixir'
+Plug 'raichoo/purescript-vim'
 
-call vundle#end()
+call plug#end()
+
 filetype plugin indent on
 filetype indent on
 filetype on
