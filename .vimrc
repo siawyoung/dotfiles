@@ -5,7 +5,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 """Colour scheme
-Plug 'jacoborus/tender'
+Plug 'morhetz/gruvbox'
 
 """ list of Plugins
 Plug 'tpope/vim-sensible'
@@ -53,10 +53,13 @@ filetype on
 
 " Theme
 syntax enable
-colorscheme tender
+colorscheme gruvbox
 if (has("termguicolors"))
  set termguicolors
 endif
+
+" Gruvbox specific settings
+set background=dark
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
@@ -141,7 +144,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 set diffopt+=vertical
 
 "airline
-let g:airline_theme = 'tender'
+let g:airline_theme = 'gruvbox'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_z=''
