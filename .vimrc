@@ -14,8 +14,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/syntastic'
-Plug 'myint/syntastic-extras'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -31,14 +29,21 @@ Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'neomake/neomake'
+Plug 'milkypostman/vim-togglelist'
 
 " Language specific plugins
+
+" Python
 Plug 'nvie/vim-flake8'
+" Javascript/JSX
 Plug 'pangloss/vim-javascript'
+Plug 'jaawerth/nrun.vim'
 Plug 'mxw/vim-jsx'
+" Golang
 Plug 'fatih/vim-go'
+" Elixir
 Plug 'elixir-lang/vim-elixir'
-Plug 'raichoo/purescript-vim'
 
 call plug#end()
 
@@ -149,21 +154,14 @@ let g:jsx_ext_required = 0
 " Don't hide quotes in json files
 set conceallevel=0
 
-" Syntastic
-let g:syntastic_mode_map = { 'mode': 'active',
-                            \ 'active_filetypes': ['python', 'javascript'],
-                            \ 'passive_filetypes': [] }
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_python_checkers = ['flake8']
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"Neomake
+"nrun plugin allows us to quickly check local eslint exec
+let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_python_enabled_makers = ['flake8']
+" Run Neomake only on buffer save
+autocmd! BufWritePost,BufEnter * Neomake
 
 " NERDTree
 " Toggle NERDTree with Ctrl-N
