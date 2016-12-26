@@ -145,6 +145,10 @@ let g:airline_section_z=''
 " Enable jsx highlighting in .js files as well
 let g:jsx_ext_required = 0
 
+" vim-json
+" Don't hide quotes in json files
+set conceallevel=0
+
 " Syntastic
 let g:syntastic_mode_map = { 'mode': 'active',
                             \ 'active_filetypes': ['python', 'javascript'],
