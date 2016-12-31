@@ -24,22 +24,26 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'terryma/vim-expand-region'
-Plug 'mattn/emmet-vim'
 Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 Plug 'milkypostman/vim-togglelist'
+Plug 'vimwiki/vimwiki'
 
 " Language specific plugins
 
+" HTML/CSS
+Plug 'mattn/emmet-vim'
 " Python
 Plug 'nvie/vim-flake8'
 " Javascript/JSX
 Plug 'pangloss/vim-javascript'
 Plug 'jaawerth/nrun.vim'
 Plug 'mxw/vim-jsx'
+" Elm
+Plug 'elmcast/elm-vim'
 " Golang
 Plug 'fatih/vim-go'
 " Elixir
@@ -196,3 +200,7 @@ let g:gutentags_exclude = ['node_modules', 'env']
 set rtp+=/usr/local/opt/fzf
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <Leader>f :Tags<CR>
+
+" vim wiki
+" Remap default Leader-W key to  ww
+nnoremap <silent> <Leader>e :VimwikiTabIndex<CR>
