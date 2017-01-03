@@ -9,16 +9,6 @@ export ZSH=/Users/siawyoung/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="bullet-train"
 
-prompt_zsh_showStatus () {
-  state=`osascript -e 'tell application "Spotify" to player state as string'`;
-  if [ $state = "playing" ]; then
-    artist=`osascript -e 'tell application "Spotify" to artist of current track as string'`;
-    track=`osascript -e 'tell application "Spotify" to name of current track as string'`;
-
-    echo -n "$artist - $track";
-  fi
-}
-
 # need to install as custom theme
 # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 # and install powerline patched fonts
@@ -30,7 +20,7 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir pyenv vcs background_jobs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status zsh_showStatus)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 
 # add 256 colour support
 export TERM="xterm-256color"
