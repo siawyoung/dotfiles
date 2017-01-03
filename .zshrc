@@ -127,11 +127,11 @@ eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # Disable pip if you're not in a virtualenv
-#export PIP_REQUIRE_VIRTUALENV=true
+export PIP_REQUIRE_VIRTUALENV=true
 # Define a new gpip function for pip install in non-virtualenv python
-#gpip() {
-#   PIP_REQUIRE_VIRTUALENV="" pip "$@"
-# }
+gpip() {
+   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+ }
 
 # golang config
 export GOPATH=$HOME/go
