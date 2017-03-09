@@ -30,7 +30,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neomake/neomake'
 Plug 'milkypostman/vim-togglelist'
-Plug 'vimwiki/vimwiki'
+Plug 'tmhedberg/SimpylFold'
 
 " Language specific plugins
 
@@ -85,7 +85,7 @@ nmap <C-x> <Nop>
 imap jk <ESC>
 imap kj <ESC>
 " Map leader to Space
-let mapleader = "\<Space>"
+let mapleader="\<Space>"
 " Map <leader>w to save file
 nnoremap <Leader>w :w<CR>
 " Tie zz after all vertical navigation to force centering
@@ -140,6 +140,10 @@ nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
 " remove whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Fold settings
+set foldmethod=indent
+set foldnestmax=2
+
 """ Plugin specific settings"""
 """""""""""""""""""""""""""""""
 
@@ -148,14 +152,22 @@ autocmd BufWritePre * :%s/\s\+$//e
 set diffopt+=vertical
 
 "airline
-let g:airline_theme = 'gruvbox'
+let g:airline_theme='gruvbox'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_z=''
 
+" emmet
+" enable jsx completions
+let g:user_emmet_settings={
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\}
+
 " vim-jsx
 " Enable jsx highlighting in .js files as well
-let g:jsx_ext_required = 0
+let g:jsx_ext_required=0
 
 " vim-json
 " Don't hide quotes in json files
@@ -163,10 +175,10 @@ set conceallevel=0
 
 "Neomake
 "nrun plugin allows us to quickly check local eslint exec
-let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_javascript_eslint_exe=nrun#Which('eslint')
+let g:neomake_javascript_enabled_makers=['eslint']
+let g:neomake_jsx_enabled_makers=['eslint']
+let g:neomake_python_enabled_makers=['flake8']
 " Run Neomake only on buffer save
 autocmd! BufWritePost,BufEnter * Neomake
 
@@ -190,11 +202,11 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 " indentLine
 " Change colour of indentation guides to a more subtle colour
-let g:indentLine_color_term = 220
+let g:indentLine_color_term=220
 
 " Gutentags
-let g:gutentags_cache_dir = '~/.config/nvim/tags/'
-let g:gutentags_exclude = ['node_modules', 'env']
+let g:gutentags_cache_dir='~/.config/nvim/tags/'
+let g:gutentags_exclude=['node_modules', 'env']
 
 " fzf setup
 set rtp+=/usr/local/opt/fzf
