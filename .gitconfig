@@ -1,0 +1,37 @@
+[user]
+        name = Siaw Young
+        email = lausiawyoung@gmail.com
+
+[credential]
+        helper = osxkeychain
+
+[merge]
+        ff = only
+
+[push]
+        default = simple
+
+[status]
+        showUntrackedFiles = all
+
+[transfer]
+        fsckobjects = true
+
+[color]
+        ui = true
+
+[color "branch"]
+        current = yellow reverse
+        local = yello
+        remote = green
+
+[color "diff"]
+        meta = yellow bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+
+[color "status"]
+        added = yellow
+        changed = green
+        untracked = red
