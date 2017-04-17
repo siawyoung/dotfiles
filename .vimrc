@@ -8,29 +8,30 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
 
 """ list of Plugins
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sleuth'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'rking/ag.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdcommenter'
-Plug 'ervandew/supertab'
-Plug 'terryma/vim-expand-region'
-Plug 'yggdroot/indentline'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'ervandew/supertab'
+Plug 'jiangmiao/auto-pairs'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'neomake/neomake'
 Plug 'milkypostman/vim-togglelist'
+Plug 'neomake/neomake'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'terryma/vim-expand-region'
 Plug 'tmhedberg/SimpylFold'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'yggdroot/indentline'
 
 " Language specific plugins
 
@@ -46,6 +47,7 @@ Plug 'mxw/vim-jsx'
 Plug 'elmcast/elm-vim'
 " Golang
 Plug 'fatih/vim-go'
+Plug 'zchee/deoplete-go', { 'do': 'make' }
 " Elixir
 Plug 'elixir-lang/vim-elixir'
 
@@ -213,6 +215,11 @@ set rtp+=/usr/local/opt/fzf
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <Leader>f :Tags<CR>
 
-" vim wiki
-" Remap default Leader-W key to  ww
-nnoremap <silent> <Leader>e :VimwikiTabIndex<CR>
+" deoplete settings
+let g:deoplete#enable_at_startup = 1
+
+" deoplete-go settings
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#use_cache = 1
+let g:deoplete#sources#go#json_directory = $HOME.'/github/go/deoplete/json'
