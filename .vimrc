@@ -13,12 +13,12 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'milkypostman/vim-togglelist'
 Plug 'neomake/neomake'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -208,7 +208,7 @@ let g:indentLine_color_term=220
 
 " Gutentags
 let g:gutentags_cache_dir='~/.config/nvim/tags/'
-let g:gutentags_exclude=['node_modules', 'env']
+let g:gutentags_ctags_exclude=['node_modules', 'env', 'vendor']
 
 " fzf setup
 set rtp+=/usr/local/opt/fzf
