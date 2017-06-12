@@ -101,6 +101,7 @@ nnoremap n nzz
 nnoremap N Nzz
 " Cycle through tabs with a and s, as well as numbered switching
 nnoremap <Leader>a gT
+nnoremap gr gT
 nnoremap <Leader>s gt
 nnoremap <Leader>1 1gt
 nnoremap <Leader>2 2gt
@@ -174,6 +175,10 @@ let g:jsx_ext_required=0
 " vim-json
 " Don't hide quotes in json files
 set conceallevel=0
+
+" vim-go
+" experimental flag to fix fold closing on save
+let g:go_fmt_experimental = 1
 
 "Neomake
 "nrun plugin allows us to quickly check local eslint exec
