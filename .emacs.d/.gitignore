@@ -1,0 +1,12 @@
+elpa/
+/bookmarks
+auto-save-list/
+/recentf
+/projectile-bookmarks.eld
+anaconda-mode/
+/.cache/
+url
+eshell/
+/persp-confs/
+var/
+config.el
