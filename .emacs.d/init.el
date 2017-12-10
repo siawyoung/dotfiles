@@ -8,7 +8,7 @@
 ;; load customize config
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-                                        ;f; end
+;; end
 
 ;; add package archives
 (require 'package)
