@@ -1,3 +1,5 @@
+;;; init.el --- This is my Emacs configuration
+
 ;; whoami
 (setq user-full-name "Lau Siaw Young"
       user-mail-address "lausiawyoung@gmail.com")
@@ -6,14 +8,14 @@
 ;; load customize config
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-;; end
+                                        ;f; end
 
 ;; add package archives
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
-;; end 
+;; end
 
 ;; use-package
 (unless (package-installed-p 'use-package)
@@ -81,6 +83,18 @@
 (setq-default tab-width 2)
 (setq-default js-indent-level 2)
 (setq-default indent-tabs-mode nil)
+;; end
+
+;; show whitespace
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+
+(add-hook 'prog-mode-hook 'whitespace-mode)
+;; end
+
+;; delete trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; end
 
 ;; stop blinking cursor
@@ -207,3 +221,8 @@
 ;; smartparens default config
 (require 'smartparens-config)
 ;; end
+
+;; flycheck config
+(use-package flycheck
+  :init (global-flycheck-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode))
