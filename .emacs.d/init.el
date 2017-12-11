@@ -20,7 +20,17 @@
 ;; use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
+  (package-install 'delight)
   (package-install 'use-package))
+
+(eval-and-compile
+  (defvar use-package-verbose t)
+  (require 'use-package)
+  (require 'bind-key)
+  (require 'delight)
+  (require 'diminish)
+  (setq use-package-always-ensure t))
+;; end
 
 ;; run recentf every 5 minutes
 (require 'recentf)
@@ -28,15 +38,6 @@
              (lambda ()
                (let ((inhibit-message t))
                  (recentf-save-list))))
-;; end
-
-(eval-and-compile
-  (defvar use-package-verbose t)
-  (require 'cl)
-  (require 'use-package)
-  (require 'bind-key)
-  (require 'diminish)
-  (setq use-package-always-ensure t))
 ;; end
 
 ;; validate config
@@ -86,11 +87,9 @@
 ;; end
 
 ;; show whitespace
-(require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face lines-tail))
-
-(add-hook 'prog-mode-hook 'whitespace-mode)
+;; (require 'whitespace)
+;; (diminish 'whitespace-mode)
+;; (add-hook 'prog-mode-hook 'whitespace-mode)
 ;; end
 
 ;; delete trailing whitespace on save
@@ -111,6 +110,7 @@
 
 ;; counsel config
 (use-package counsel
+  :demand t
   :diminish ivy-mode
   :bind
   (("C-c C-r" . ivy-resume)
@@ -164,22 +164,43 @@
    '(("I" insert "insert"))))
 ;; end
 
+;; flx
+(use-package flx)
+
 ;; magit config
 (use-package magit
   :bind (("s-g" . magit-status)))
 ;; end
 
+;; reload buffers if changes happen in buffers due to git
+(diminish 'auto-revert-mode)
+(global-auto-revert-mode 1)
+
 ;; projectile config
 (use-package projectile
+  ;; show only the project name in mode line
+  :delight '(:eval (concat " " (projectile-project-name)))
   :init
   (add-hook 'after-init-hook 'projectile-mode)
   :config
+  (use-package counsel-projectile
+    :bind
+    ;; fuzzy find file in project
+    ("s-f" . counsel-projectile-find-file)
+    ;; fuzzy find phrase in project
+    (:map projectile-command-map
+          ("s" . counsel-projectile-rg))
+    :config (counsel-projectile-on))
+  ;; use git grep to ignore files
   (setq projectile-use-git-grep t)
+  ;; use ivy as completion system
   (setq projectile-completion-system 'ivy))
 ;; end
 
 ;; diff-hl config
-(use-package diff-hl)
+(use-package diff-hl
+  :config
+  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
 ;; end
 
 ;; company config
@@ -202,27 +223,48 @@
   (add-hook 'after-init-hook 'aggressive-indent-global-mode))
 ;; end
 
-;; smart-mode-line config
-(use-package smart-mode-line
-  :init
-  (add-hook 'after-init-hook 'sml/setup)
-  :config
-  (setq sml/theme 'respectful)
-  (setq sml/name-width 44)
-  (setq sml/shorten-directory t)
-  (setq sml/shorten-modes nil)
-  (setq sml/mode-width 'full))
-;; end
-
 ;; easy-kill config
 (global-set-key [remap kill-ring-save] 'easy-kill)
 ;; end
 
-;; smartparens default config
-(require 'smartparens-config)
-;; end
+;; shows unbalanced delimiters
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+;; autocomplete delimiters
+(use-package smartparens
+  :diminish smartparens-mode
+  :init
+  (add-hook 'after-init-hook 'smartparens-global-mode))
 
 ;; flycheck config
 (use-package flycheck
   :init (global-flycheck-mode)
   (add-hook 'after-init-hook #'global-flycheck-mode))
+
+;; suggestive autocompletion for M-x
+(use-package which-key
+  :diminish which-key-mode
+  :init (which-key-mode))
+
+;; goto function definition
+(use-package dumb-jump
+  :bind
+  (("M-g o" . dumb-jump-go-other-window)
+   ("M-g j" . dumb-jump-go)
+   ("M-g i" . dumb-jump-go-prompt))
+  :config
+  (setq dumb-jump-selector 'ivy))
+
+;; python stuff
+(use-package anaconda-mode
+  :diminish anaconda-mode
+  :init
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+
+(use-package company-anaconda
+  :config
+  (eval-after-load "company"
+    '(add-to-list 'company-backends '(company-anaconda))))
