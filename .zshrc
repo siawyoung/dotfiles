@@ -75,5 +75,15 @@ bindkey '^Z' fancy-ctrl-z
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# source development specific config, comment out if unneeded
-source "$HOME/.zshrc.dev"
+# pyenv config
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# rbenv config
+eval "$(rbenv init -)"
+
+# docker config
+alias d="docker"
+alias dc="docker-compose"
+alias dm="docker-machine"
+alias eval_default="eval \$(docker-machine env default)"

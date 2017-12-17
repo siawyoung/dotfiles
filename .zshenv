@@ -14,8 +14,6 @@ export PATH="$PATH:`yarn global bin`"
 
 # pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # Disable pip if you're not in a virtualenv
@@ -25,8 +23,5 @@ gpip() {
    PIP_REQUIRE_VIRTUALENV="" pip "$@"
  }
 
-# docker config
-alias d="docker"
-alias dc="docker-compose"
-alias dm="docker-machine"
-alias eval_default="eval \$(docker-machine env default)"
+# rbenv config
+export PATH="$HOME/.rbenv/bin:$PATH"
