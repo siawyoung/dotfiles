@@ -51,9 +51,9 @@
 ;; end
 
 ;; load $PATH env variable into emacs
-(use-package exec-path-from-shell
-  :demand t
-  :init (exec-path-from-shell-initialize))
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
 ;; end
 
 ;; set universal font size to 17px
@@ -107,6 +107,23 @@
 ;; load gruvbox
 (load-theme 'gruvbox t)
 ;; end
+
+;; smart-mode-line
+(use-package smart-mode-line
+  :init
+  (add-hook 'after-init-hook 'sml/setup)
+  :config
+  (setq sml/theme 'respectful)
+  (setq sml/shorten-directory t)
+  (setq sml/position-percentage-format nil)
+  ;; remove these stuff from the mode-line
+  (setq rm-blacklist
+        (format "^ \\(%s\\)$"
+                (mapconcat #'identity
+                           '("ElDoc")
+                           "\\|")))
+  ;; hide "~/github" prefix in mode-line
+  (add-to-list 'sml/replacer-regexp-list '("^~/github" "")))
 
 ;; counsel config
 (use-package counsel
@@ -240,6 +257,7 @@
 
 ;; flycheck config
 (use-package flycheck
+  :diminish flycheck-mode
   :init (global-flycheck-mode)
   (add-hook 'after-init-hook #'global-flycheck-mode))
 
@@ -268,3 +286,46 @@
   :config
   (eval-after-load "company"
     '(add-to-list 'company-backends '(company-anaconda))))
+
+;; for Guru, we need to add https://github.com/dominikh/go-mode.el/blob/master/go-guru.el manually to a load path (which we also need to define)
+(add-to-list 'load-path "~/.emacs.d/go/")
+(require 'go-guru)
+
+(use-package go-mode
+  :mode ("\\.go\\'" . go-mode)
+  :config
+  (add-hook 'go-mode-hook (lambda ()
+                            (add-hook 'before-save-hook 'gofmt-before-save)
+                            (setq gofmt-command "goimports")
+                            (local-set-key (kbd "M-.") 'godef-jump)))
+  (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
+  ;; (add-hook 'go-mode-hook
+  ;;           (lambda ()
+  ;;             (unless (file-exists-p "Makefile")
+  ;;               (set (make-local-variable 'compile-command)
+  ;;                    (let ((file (file-name-nondirectory buffer-file-name)))
+  ;;                      (format "go build %s"
+  ;;                              file))))))
+  ;; (use-package go-dlv
+  ;;   :config (require 'go-dlv))
+  (use-package golint
+    :config
+    (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
+    (require 'golint))
+  (use-package gorepl-mode
+    :config (add-hook 'go-mode-hook #'gorepl-mode))
+  (use-package company-go
+    :config
+    (add-hook 'go-mode-hook (lambda () (s/local-push-company-backend 'company-go)))
+    ))
+(setq company-go-show-annotation t)
+
+;; vim-like expand-regions
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)))
+
+;; guru-mode
+(use-package guru-mode
+  :diminish guru-mode
+  :init
+  (add-hook 'after-init-hook 'guru-global-mode))
