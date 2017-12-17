@@ -3,19 +3,16 @@
 ;; whoami
 (setq user-full-name "Lau Siaw Young"
       user-mail-address "lausiawyoung@gmail.com")
-;; end
 
 ;; load customize config
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-;; end
 
 ;; add package archives
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
-;; end
 
 ;; use-package
 (unless (package-installed-p 'use-package)
@@ -30,7 +27,6 @@
   (require 'delight)
   (require 'diminish)
   (setq use-package-always-ensure t))
-;; end
 
 ;; run recentf every 5 minutes
 (require 'recentf)
@@ -38,34 +34,28 @@
              (lambda ()
                (let ((inhibit-message t))
                  (recentf-save-list))))
-;; end
 
 ;; validate config
 ;; check for emacs config errors
 (use-package validate
   :demand t)
-;; end
 
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
-;; end
 
 ;; load $PATH env variable into emacs
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
-;; end
 
 ;; set universal font size to 17px
 (set-face-attribute 'default nil :height 170)
-;; end
 
 ;; Move all backup files to the OS's temp directory
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
-;; end
 
 ;; Remove useless toolbars and splash screens
 (tooltip-mode -1)
@@ -74,31 +64,20 @@
 (scroll-bar-mode -1)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
-;; end
 
 ;; Use single spaces
 (setq sentence-end-double-space nil)
-;; end
 
 ;; Use 2 spaces for tabs
 (setq-default tab-width 2)
 (setq-default js-indent-level 2)
 (setq-default indent-tabs-mode nil)
-;; end
-
-;; show whitespace
-;; (require 'whitespace)
-;; (diminish 'whitespace-mode)
-;; (add-hook 'prog-mode-hook 'whitespace-mode)
-;; end
 
 ;; delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-;; end
 
 ;; stop blinking cursor
 (blink-cursor-mode 0)
-;; end
 
 ;;;
 ;; Third party package config
@@ -106,7 +85,6 @@
 
 ;; load gruvbox
 (load-theme 'gruvbox t)
-;; end
 
 ;; smart-mode-line
 (use-package smart-mode-line
@@ -179,7 +157,6 @@
   (ivy-set-actions
    t
    '(("I" insert "insert"))))
-;; end
 
 ;; flx
 (use-package flx)
@@ -187,7 +164,6 @@
 ;; magit config
 (use-package magit
   :bind (("s-g" . magit-status)))
-;; end
 
 ;; reload buffers if changes happen in buffers due to git
 (diminish 'auto-revert-mode)
@@ -212,13 +188,11 @@
   (setq projectile-use-git-grep t)
   ;; use ivy as completion system
   (setq projectile-completion-system 'ivy))
-;; end
 
 ;; diff-hl config
 (use-package diff-hl
   :config
   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
-;; end
 
 ;; company config
 (use-package company
@@ -231,18 +205,15 @@
         ("C-p" . company-select-previous))
   :init
   (add-hook 'after-init-hook 'global-company-mode))
-;; end
 
 ;; aggressive-indent config
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
   :init
   (add-hook 'after-init-hook 'aggressive-indent-global-mode))
-;; end
 
 ;; easy-kill config
 (global-set-key [remap kill-ring-save] 'easy-kill)
-;; end
 
 ;; shows unbalanced delimiters
 (use-package rainbow-delimiters
@@ -291,6 +262,7 @@
 (add-to-list 'load-path "~/.emacs.d/go/")
 (require 'go-guru)
 
+;; golang config
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
   :config
@@ -299,15 +271,6 @@
                             (setq gofmt-command "goimports")
                             (local-set-key (kbd "M-.") 'godef-jump)))
   (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
-  ;; (add-hook 'go-mode-hook
-  ;;           (lambda ()
-  ;;             (unless (file-exists-p "Makefile")
-  ;;               (set (make-local-variable 'compile-command)
-  ;;                    (let ((file (file-name-nondirectory buffer-file-name)))
-  ;;                      (format "go build %s"
-  ;;                              file))))))
-  ;; (use-package go-dlv
-  ;;   :config (require 'go-dlv))
   (use-package golint
     :config
     (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
