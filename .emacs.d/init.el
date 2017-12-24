@@ -230,7 +230,9 @@
 (use-package flycheck
   :diminish flycheck-mode
   :init (global-flycheck-mode)
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  (setq flycheck-highlighting-mode 'lines))
 
 ;; suggestive autocompletion for M-x
 (use-package which-key
@@ -251,7 +253,10 @@
   :diminish anaconda-mode
   :init
   (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  (use-package py-yapf
+    :bind
+    ("M-s" . py-yapf-buffer)))
 
 (use-package company-anaconda
   :config
@@ -283,6 +288,14 @@
     ))
 (setq company-go-show-annotation t)
 
+(use-package protobuf-mode
+  :init
+  (defconst my-protobuf-style
+    '((c-basic-offset . 4)
+      (indent-tabs-mode . nil)))
+  (add-hook 'protobuf-mode-hook
+            (lambda () (c-add-style "my-style" my-protobuf-style t))))
+
 ;; vim-like expand-regions
 (use-package expand-region
   :bind (("C-=" . er/expand-region)))
@@ -292,3 +305,13 @@
   :diminish guru-mode
   :init
   (add-hook 'after-init-hook 'guru-global-mode))
+
+;; restclient
+(use-package restclient
+  :config
+  (eval-after-load "restclient"
+    '(add-to-list 'company-backends 'company-restclient)))
+
+;; wgrep
+(use-package wgrep
+  :config (setq wgrep-enable-key "w"))
