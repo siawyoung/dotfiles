@@ -43,6 +43,19 @@
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; make scroll-up and scroll-down have half window scroll
+(defun window-half-height ()
+  (max 1 (/ (1- (window-height (selected-window))) 2)))
+
+(defun reset-next-screen-context-lines ()
+  (setq next-screen-context-lines (window-half-height)))
+
+(defadvice scroll-up-command (before scroll-up-half-screen activate)
+  (reset-next-screen-context-lines))
+
+(defadvice scroll-down-command (before scroll-down-half-screen activate)
+  (reset-next-screen-context-lines))
+
 ;; load $PATH env variable into emacs
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
@@ -85,6 +98,11 @@
 
 ;; load gruvbox
 (load-theme 'gruvbox t)
+
+(use-package centered-cursor-mode
+  :diminish centered-cursor-mode
+  :init
+  (setq global-centered-cursor-mode 1))
 
 ;; smart-mode-line
 (use-package smart-mode-line
@@ -169,6 +187,9 @@
 (diminish 'auto-revert-mode)
 (global-auto-revert-mode 1)
 
+(use-package perspective
+  :init (persp-mode))
+
 ;; projectile config
 (use-package projectile
   ;; show only the project name in mode line
@@ -184,6 +205,11 @@
     (:map projectile-command-map
           ("s" . counsel-projectile-rg))
     :config (counsel-projectile-on))
+  ;; use perspective to manage project buffers
+  (use-package persp-projectile
+    :bind
+    (:map projectile-mode-map
+          ("s-s" . projectile-persp-switch-project)))
   ;; use git grep to ignore files
   (setq projectile-use-git-grep t)
   ;; use ivy as completion system
