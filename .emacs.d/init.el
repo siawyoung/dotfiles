@@ -37,8 +37,7 @@
 
 ;; validate config
 ;; check for emacs config errors
-(use-package validate
-  :demand t)
+(use-package validate)
 
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -92,6 +91,31 @@
 ;; stop blinking cursor
 (blink-cursor-mode 0)
 
+;; custom function for reloading config
+(defun reload-init ()
+  (interactive)
+  (load-file "~/.emacs.d/init.el"))
+
+;; eshell
+(require 'eshell)
+(require 'em-smart)
+
+;; org-mode
+(require 'org)
+;; soft-wrap lines
+(setq org-startup-truncated nil)
+
+;; don't garbage collect when minibuffer is open
+;; http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold 800000))
+
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
 ;;;
 ;; Third party package config
 ;;;
@@ -123,7 +147,6 @@
 
 ;; counsel config
 (use-package counsel
-  :demand t
   :diminish ivy-mode
   :bind
   (("C-c C-r" . ivy-resume)
@@ -250,7 +273,17 @@
 (use-package smartparens
   :diminish smartparens-mode
   :init
-  (add-hook 'after-init-hook 'smartparens-global-mode))
+  (add-hook 'after-init-hook 'smartparens-global-mode)
+  :config
+  ;; Org-mode config
+  (sp-with-modes 'org-mode
+    (sp-local-pair "'" nil :unless '(sp-point-after-word-p))
+    (sp-local-pair "*" "*" :actions '(insert wrap) :unless '(sp-point-after-word-p sp-point-at-bol-p) :wrap "C-*" :skip-match 'sp--org-skip-asterisk)
+    (sp-local-pair "_" "_" :unless '(sp-point-after-word-p))
+    (sp-local-pair "/" "/" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")))
+    (sp-local-pair "~" "~" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")))
+    (sp-local-pair "=" "=" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")))
+    (sp-local-pair "«" "»")))
 
 ;; flycheck config
 (use-package flycheck
@@ -259,6 +292,14 @@
   (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
   (setq flycheck-highlighting-mode 'lines))
+
+;; spell-checking in text modes with flyspell
+(use-package flyspell
+  :diminish flyspell-mode
+  :init
+  (setenv "DICTIONARY" "en_GB")
+  :config
+  (add-hook 'text-mode-hook 'flyspell-mode))
 
 ;; suggestive autocompletion for M-x
 (use-package which-key
@@ -280,9 +321,11 @@
   :init
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  (use-package py-yapf
-    :bind
-    ("M-s" . py-yapf-buffer)))
+  (use-package yapfify)
+  :config
+  (eval-after-load 'anaconda-mode
+    '(progn
+       (define-key anaconda-mode-map (kbd "M-s") 'yapfify-buffer))))
 
 (use-package company-anaconda
   :config
@@ -314,6 +357,7 @@
     ))
 (setq company-go-show-annotation t)
 
+;; use 4 spaces in protobuf-mode
 (use-package protobuf-mode
   :init
   (defconst my-protobuf-style
@@ -341,3 +385,19 @@
 ;; wgrep
 (use-package wgrep
   :config (setq wgrep-enable-key "w"))
+
+;; pdf
+(use-package pdf-tools
+  :mode (("\\.pdf\\'" . pdf-view-mode))
+  ;; :bind
+  ;; (:map pdf-view-mode-map
+  ;;       (("h" . pdf-annot-add-highlight-markup-annotation)
+  ;;        ("t" . pdf-annot-add-text-annotation)
+  ;;        ("D" . pdf-annot-delete)
+  ;;        ("C-s" . isearch-forward)))
+  :config
+  ;; More fine-grained resizing (10%)
+  (setq pdf-view-resize-factor 1.1)
+
+  ;; Install pdf tools
+  (pdf-tools-install))
