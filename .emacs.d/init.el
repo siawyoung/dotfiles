@@ -42,19 +42,6 @@
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; make scroll-up and scroll-down have half window scroll
-(defun window-half-height ()
-  (max 1 (/ (1- (window-height (selected-window))) 2)))
-
-(defun reset-next-screen-context-lines ()
-  (setq next-screen-context-lines (window-half-height)))
-
-(defadvice scroll-up-command (before scroll-up-half-screen activate)
-  (reset-next-screen-context-lines))
-
-(defadvice scroll-down-command (before scroll-down-half-screen activate)
-  (reset-next-screen-context-lines))
-
 ;; load $PATH env variable into emacs
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
@@ -220,6 +207,7 @@
   :init
   (add-hook 'after-init-hook 'projectile-mode)
   :config
+  (setq projectile-enable-caching t)
   (use-package counsel-projectile
     :bind
     ;; fuzzy find file in project
@@ -299,7 +287,9 @@
   :init
   (setenv "DICTIONARY" "en_GB")
   :config
-  (add-hook 'text-mode-hook 'flyspell-mode))
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  ;; flyspell with aspell
+  (setq ispell-list-command "--list"))
 
 ;; suggestive autocompletion for M-x
 (use-package which-key
@@ -311,6 +301,7 @@
   :bind
   (("M-g o" . dumb-jump-go-other-window)
    ("M-g j" . dumb-jump-go)
+   ("M-g p" . dumb-jump-back)
    ("M-g i" . dumb-jump-go-prompt))
   :config
   (setq dumb-jump-selector 'ivy))
@@ -401,3 +392,5 @@
 
   ;; Install pdf tools
   (pdf-tools-install))
+
+(use-package json-mode)
