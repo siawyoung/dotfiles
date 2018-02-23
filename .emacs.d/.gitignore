@@ -12,3 +12,5 @@ var/
 config.el
 tramp
 network-security.data
+games
+projectile.cache
