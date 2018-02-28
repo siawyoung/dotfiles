@@ -214,8 +214,7 @@
     ("s-f" . counsel-projectile-find-file)
     ;; fuzzy find phrase in project
     (:map projectile-command-map
-          ("s" . counsel-projectile-rg))
-    :config (counsel-projectile-on))
+          ("s" . counsel-projectile-rg)))
   ;; use perspective to manage project buffers
   (use-package persp-projectile
     :bind
@@ -332,9 +331,11 @@
   :mode ("\\.go\\'" . go-mode)
   :config
   (add-hook 'go-mode-hook (lambda ()
-                            (add-hook 'before-save-hook 'gofmt-before-save)
+                            (add-hook 'before-save-hook #'gofmt-before-save)
                             (setq gofmt-command "goimports")
-                            (local-set-key (kbd "M-.") 'godef-jump)))
+                            (local-set-key (kbd "M-.") 'godef-jump)
+                            (set (make-local-variable 'company-backends) '(company-go))
+                            (company-mode)))
   (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
   (use-package golint
     :config
@@ -342,10 +343,7 @@
     (require 'golint))
   (use-package gorepl-mode
     :config (add-hook 'go-mode-hook #'gorepl-mode))
-  (use-package company-go
-    :config
-    (add-hook 'go-mode-hook (lambda () (s/local-push-company-backend 'company-go)))
-    ))
+  (use-package company-go))
 (setq company-go-show-annotation t)
 
 ;; use 4 spaces in protobuf-mode
@@ -394,3 +392,5 @@
   (pdf-tools-install))
 
 (use-package json-mode)
+
+(use-package dockerfile-mode)
