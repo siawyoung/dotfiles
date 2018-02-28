@@ -97,6 +97,11 @@ brew 'xvid'
 brew 'xz'
 brew 'zeromq'
 
+# k8s
+brew 'kubernetes-cli'
+cask 'minikube'
+brew 'kubectx'
+
 # utilities
 brew 'pandoc'
 brew 'the_silver_searcher'
@@ -110,22 +115,16 @@ brew 'erlang'
 brew 'haskell-stack'
 brew 'leiningen'
 
-# not so important stuff
-brew 'fish'
-brew 'hugo'
-
 # casks
 cask '1password'
 cask 'appcleaner'
 cask 'bettertouchtool'
-cask 'clementine'
 cask 'docker-toolbox'
 cask 'emacs'
 cask 'firefox'
 cask 'flux'
 cask 'franz'
 cask 'google-chrome'
-cask 'graphiql'
 cask 'iterm2'
 cask 'java'
 cask 'karabiner-elements'
