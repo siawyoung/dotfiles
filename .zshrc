@@ -1,3 +1,6 @@
+# start tmux if not already started
+if [ "$TMUX" = "" ]; then tmux; fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/siawyoung/.oh-my-zsh
 

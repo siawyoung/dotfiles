@@ -39,6 +39,12 @@
 ;; check for emacs config errors
 (use-package validate)
 
+;; delete-selection mode to overwrite selection
+(delete-selection-mode 1)
+
+;; Use ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -394,3 +400,18 @@
 (use-package json-mode)
 
 (use-package dockerfile-mode)
+
+(use-package ibuffer-vc
+  :init
+  (add-hook 'ibuffer-hook
+            (lambda()
+              (ibuffer-vc-set-filter-groups-by-vc-root)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic)))))
+
+(use-package git-link)
+
+(use-package yasnippet
+  :diminish yas-global-mode yas-minor-mode
+  :init (add-hook 'after-init-hook 'yas-global-mode)
+  :config (setq yas-snippet-dirs '("~/.emacs.d/snippets/snippets/")))

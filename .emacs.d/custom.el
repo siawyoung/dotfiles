@@ -9,7 +9,7 @@
  '(global-centered-cursor-mode t)
  '(package-selected-packages
    (quote
-    (dockerfile-mode golden-ratio-scroll-screen json-mode yapfify persp-projectile perspective pdf-tools centered-cursor-mode py-yapf wgrep restclient guru-mode expand-region company-go gorepl-mode golint rainbow-delimiters flx delight company-anaconda anaconda-mode counsel-projectile dumb-jump which-key protobuf-mode exec-path-from-shell validate flycheck smartparens go-mode easy-kill gruvbox-theme use-package smart-mode-line projectile magit diff-hl counsel company aggressive-indent)))
+    (git-link ibuffer-vc dockerfile-mode golden-ratio-scroll-screen json-mode yapfify persp-projectile perspective pdf-tools centered-cursor-mode py-yapf wgrep restclient guru-mode expand-region company-go gorepl-mode golint rainbow-delimiters flx delight company-anaconda anaconda-mode counsel-projectile dumb-jump which-key protobuf-mode exec-path-from-shell validate flycheck smartparens go-mode easy-kill gruvbox-theme use-package smart-mode-line projectile magit diff-hl counsel company aggressive-indent)))
  '(smooth-scroll-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
