@@ -56,11 +56,14 @@
 ;; set universal font size to 17px
 (set-face-attribute 'default nil :height 170)
 
-;; Move all backup files to the OS's temp directory
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+(setq backup-by-copying t      ; don't clobber symlinks
+      backup-directory-alist '(("." . "~/.emacs-saves"))    ; don't litter my fs tree
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)       ; use versioned backups
 (setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+      `((".*" "~/.emacs-saves/" t)))
 
 ;; Remove useless toolbars and splash screens
 (tooltip-mode -1)
@@ -98,16 +101,8 @@
 ;; soft-wrap lines
 (setq org-startup-truncated nil)
 
-;; don't garbage collect when minibuffer is open
-;; http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
-(defun my-minibuffer-setup-hook ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(defun my-minibuffer-exit-hook ()
-  (setq gc-cons-threshold 800000))
-
-(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+(setq gc-cons-threshold 50000000)
+(setq large-file-warning-threshold 100000000)
 
 ;;;
 ;; Third party package config
@@ -204,7 +199,10 @@
 (global-auto-revert-mode 1)
 
 (use-package perspective
-  :init (persp-mode))
+  :init
+  (persp-mode)
+  ;; hide list of projects in bottom right of modeline
+  (persp-turn-off-modestring))
 
 ;; projectile config
 (use-package projectile
@@ -416,4 +414,33 @@
   :config
   (use-package yasnippet-snippets)
   (add-to-list 'yas-snippet-dirs yasnippet-snippets-dir)
-  (yas-global-mode 1))
+  (yas-global-mode 1)
+  (global-set-key (kbd "M-/") 'company-yasnippet))
+
+(use-package golden-ratio
+  :diminish golden-ratio-mode
+  :init
+  (add-hook 'after-init-hook 'golden-ratio-mode))
+
+(use-package volatile-highlights
+  :diminish volatile-highlights-mode
+  :init
+  (add-hook 'after-init-hook 'volatile-highlights-mode))
+
+(use-package crux
+  :bind (("C-c C" . crux-cleanup-buffer-or-region)
+         ("C-c D" . crux-delete-file-and-buffer)
+         ("C-a" . crux-move-beginning-of-line)
+         ("M-o" . crux-smart-open-line)
+         ("C-c r" . crux-rename-file-and-buffer)
+         ("M-D" . crux-duplicate-and-comment-current-line-or-region)
+         ("s-o" . crux-smart-open-line-above)))
+
+(use-package windmove
+  :config
+  ;; wrap around at edges
+  (setq windmove-wrap-around t)
+  :bind(("s-H" . 'windmove-left)
+        ("s-J" . 'windmove-up)
+        ("s-K" . 'windmove-down)
+        ("s-L" . 'windmove-right)))
