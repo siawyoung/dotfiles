@@ -420,12 +420,9 @@
 (use-package golden-ratio
   :diminish golden-ratio-mode
   :init
-  (add-hook 'after-init-hook 'golden-ratio-mode))
-
-(use-package volatile-highlights
-  :diminish volatile-highlights-mode
-  :init
-  (add-hook 'after-init-hook 'volatile-highlights-mode))
+  (add-hook 'after-init-hook 'golden-ratio-mode)
+  :config
+  (add-to-list 'golden-ratio-extra-commands 'ace-window))
 
 (use-package crux
   :bind (("C-c C" . crux-cleanup-buffer-or-region)
@@ -436,11 +433,12 @@
          ("M-D" . crux-duplicate-and-comment-current-line-or-region)
          ("s-o" . crux-smart-open-line-above)))
 
-(use-package windmove
+(use-package key-chord
   :config
-  ;; wrap around at edges
-  (setq windmove-wrap-around t)
-  :bind(("s-H" . 'windmove-left)
-        ("s-J" . 'windmove-up)
-        ("s-K" . 'windmove-down)
-        ("s-L" . 'windmove-right)))
+  (key-chord-mode 1)
+  (key-chord-define-global "jj" 'ace-swap-window)
+  (key-chord-define-global "kk" 'ace-window))
+
+(use-package ace-window
+  :config
+  (setq aw-swap-invert t))
