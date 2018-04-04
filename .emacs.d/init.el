@@ -6,7 +6,8 @@
 
 ;; load customize config
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(if (file-exists-p custom-file) (load custom-file))
+;; (load custom-file)
 
 ;; add package archives
 (require 'package)
@@ -30,6 +31,8 @@
   (require 'delight)
   (require 'bind-key))
 
+;; always ensure
+(setq use-package-always-ensure t)
 ;; Always demand if daemon-mode
 (setq use-package-always-demand (daemonp))
 
@@ -173,15 +176,16 @@
     (interactive)
     (if ivy--directory
         (ivy-quit-and-run
-         (dired ivy--directory)
-         (when (re-search-forward
-                (regexp-quote
-                 (substring ivy--current 0 -1)) nil t)
-           (goto-char (match-beginning 0))))
+          (dired ivy--directory)
+          (when (re-search-forward
+                 (regexp-quote
+                  (substring ivy--current 0 -1)) nil t)
+            (goto-char (match-beginning 0))))
       (user-error
        "Not completing files currently")))
   (setq counsel-find-file-at-point t)
   (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
   (setq ivy-display-style 'fancy)
   (setq ivy-initial-inputs-alist nil)
   (setq ivy-re-builders-alist
@@ -208,6 +212,35 @@
   (persp-mode)
   ;; hide list of projects in bottom right of modeline
   (persp-turn-off-modestring))
+
+;; order perspectives in MRU
+;; https://gist.github.com/Bad-ptr/1aca1ec54c3bdb2ee80996eb2b68ad2d#file-persp-mru-el
+(with-eval-after-load "persp-mode"
+  (add-hook 'persp-before-switch-functions
+            #'(lambda (new-persp-name w-or-f)
+                (let ((cur-persp-name (safe-persp-name (get-current-persp))))
+                  (when (member cur-persp-name persp-names-cache)
+                    (setq persp-names-cache
+                          (cons cur-persp-name
+                                (delete cur-persp-name persp-names-cache)))))))
+
+  (add-hook 'persp-renamed-functions
+            #'(lambda (persp old-name new-name)
+                (setq persp-names-cache
+                      (cons new-name (delete old-name persp-names-cache)))))
+
+  (add-hook 'persp-before-kill-functions
+            #'(lambda (persp)
+                (setq persp-names-cache
+                      (delete (safe-persp-name persp) persp-names-cache))))
+
+  (add-hook 'persp-created-functions
+            #'(lambda (persp phash)
+                (when (and (eq phash *persp-hash*)
+                           (not (member (safe-persp-name persp)
+                                        persp-names-cache)))
+                  (setq persp-names-cache
+                        (cons (safe-persp-name persp) persp-names-cache))))))
 
 ;; projectile config
 (use-package projectile
@@ -457,3 +490,6 @@
          ("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)))
+
+;; (use-package smex
+;;   :bind (("M-x" . smex)))

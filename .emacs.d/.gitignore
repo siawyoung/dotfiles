@@ -1,17 +1,13 @@
-elpa/
-/bookmarks
-auto-save-list/
-/recentf
-/projectile-bookmarks.eld
-anaconda-mode/
-/.cache/
-url
-eshell/
-/persp-confs/
-var/
-config.el
-tramp
-network-security.data
-games
-projectile.cache
-flycheck_init.el
+# emacs gitignore as a whitelist
+
+*
+
+!.gitignore
+!init.el
+
+# personal snippets
+!snippets
+
+# Check in go-guru.el because its not installable by use-package
+# Check to see if I really use it - remove it if not
+!go/go-guru.el
