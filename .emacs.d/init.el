@@ -15,18 +15,23 @@
 (package-initialize)
 
 ;; use-package
-(unless (package-installed-p 'use-package)
+(unless (and (package-installed-p 'use-package)
+             (package-installed-p 'delight)
+             (package-installed-p 'diminish))
   (package-refresh-contents)
+  (package-install 'use-package)
   (package-install 'delight)
-  (package-install 'use-package))
+  (package-install 'diminish))
 
-(eval-and-compile
+(eval-when-compile
   (defvar use-package-verbose t)
   (require 'use-package)
-  (require 'bind-key)
-  (require 'delight)
   (require 'diminish)
-  (setq use-package-always-ensure t))
+  (require 'delight)
+  (require 'bind-key))
+
+;; Always demand if daemon-mode
+(setq use-package-always-demand (daemonp))
 
 ;; run recentf every 5 minutes
 (require 'recentf)
@@ -442,3 +447,13 @@
 (use-package ace-window
   :config
   (setq aw-swap-invert t))
+
+(use-package smartscan
+  :init
+  (add-hook 'after-init-hook 'smartscan-mode))
+
+(use-package multiple-cursors
+  :bind (("C-M-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
