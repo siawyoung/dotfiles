@@ -7,7 +7,9 @@
 ;; load customize config
 (setq custom-file "~/.emacs.d/custom.el")
 (if (file-exists-p custom-file) (load custom-file))
-;; (load custom-file)
+
+;; load secrets
+;; (load-file "~/.emacs.d/secrets.el")
 
 ;; add package archives
 (require 'package)
@@ -203,7 +205,12 @@
 
 ;; magit config
 (use-package magit
-  :bind (("s-g" . magit-status)))
+  :bind (("s-g" . magit-status))
+  :config
+  ;; find all git projects using magit
+  (setq magit-repository-directories
+        '(("~/github/" . 1)
+          ("~/github/go/src/github.com/carousell/" . 1))))
 
 ;; reload buffers if changes happen in buffers due to git
 (diminish 'auto-revert-mode)
@@ -252,6 +259,13 @@
   (add-hook 'after-init-hook 'projectile-mode)
   :config
   (setq projectile-enable-caching t)
+  ;; https://emacs.stackexchange.com/questions/32634/how-can-the-list-of-projects-used-by-projectile-be-manually-updated/3
+  (when (require 'magit nil t)
+    2635
+    (mapc #'projectile-add-known-project
+          (mapcar #'file-name-as-directory (magit-list-repos)))
+    ;; Optionally persist
+    (projectile-save-known-projects))
   (use-package counsel-projectile
     :bind
     ;; fuzzy find file in project
