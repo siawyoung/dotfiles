@@ -122,7 +122,7 @@
 (use-package centered-cursor-mode
   :diminish centered-cursor-mode
   :init
-  (setq global-centered-cursor-mode 1))
+  (add-hook 'after-init-hook 'global-centered-cursor-mode))
 
 ;; smart-mode-line
 (use-package smart-mode-line
@@ -185,6 +185,8 @@
        "Not completing files currently")))
   (setq counsel-find-file-at-point t)
   (setq ivy-use-virtual-buffers t)
+  ;; 2 buffers with the same name will have the path prepended
+  (setq ivy-virtual-abbreviate "full")
   (setq ivy-count-format "(%d/%d) ")
   (setq ivy-display-style 'fancy)
   (setq ivy-initial-inputs-alist nil)
@@ -475,7 +477,9 @@
   :config
   (key-chord-mode 1)
   (key-chord-define-global "jj" 'ace-swap-window)
-  (key-chord-define-global "kk" 'ace-window))
+  (key-chord-define-global "kk" 'ace-window)
+  ;; vim-like
+  (key-chord-define-global "vv" 'er/expand-region))
 
 (use-package ace-window
   :config
@@ -491,5 +495,4 @@
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)))
 
-;; (use-package smex
-;;   :bind (("M-x" . smex)))
+(use-package smex)
