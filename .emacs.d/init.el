@@ -121,6 +121,9 @@
 ;; load gruvbox
 (load-theme 'gruvbox t)
 
+;; make selected text background easier to see
+(set-face-attribute 'region nil :background "#666")
+
 (use-package centered-cursor-mode
   :diminish centered-cursor-mode
   :init
@@ -489,6 +492,8 @@
 
 (use-package key-chord
   :config
+  ;; for double-press on same key, increase the delay a bit more
+  (setq key-chord-one-key-delay 0.3)
   (key-chord-mode 1)
   (key-chord-define-global "jj" 'ace-swap-window)
   (key-chord-define-global "kk" 'ace-window)
