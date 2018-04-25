@@ -269,7 +269,6 @@
   (setq projectile-enable-caching t)
   ;; https://emacs.stackexchange.com/questions/32634/how-can-the-list-of-projects-used-by-projectile-be-manually-updated/3
   (when (require 'magit nil t)
-    2635
     (mapc #'projectile-add-known-project
           (mapcar #'file-name-as-directory (magit-list-repos)))
     ;; Optionally persist
