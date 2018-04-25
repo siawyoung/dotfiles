@@ -58,6 +58,10 @@
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; save all buffers when Emacs loses focus
+(add-hook 'focus-out-hook
+          (lambda () (save-some-buffers t)))
+
 ;; load $PATH env variable into emacs
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
@@ -107,9 +111,43 @@
 (require 'em-smart)
 
 ;; org-mode
-(require 'org)
+(use-package org
+  :mode ("\\.org\\'" . org-mode)
+  :bind
+  (("C-c a" . org-agenda)
+   ("C-c c" . org-capture))
+  :config
+  (setq
+   org-modules (quote (org-habit))
+   ;; Add syntax highlighting to code blocks
+   org-src-fontify-natively t
+   org-src-tab-acts-natively t))
+
+;; set timestamp when marked as done
+(setq org-log-done 'time)
+
+(setq org-return-follows-link t)
 ;; soft-wrap lines
 (setq org-startup-truncated nil)
+(setq org-agenda-files '("~/github/org/gtd/inbox.org"
+                         "~/github/org/gtd/gtd.org"
+                         "~/github/org/gtd/tickler.org"))
+
+(set-register ?i (cons 'file "~/github/org/gtd/inbox.org"))
+(set-register ?g (cons 'file "~/github/org/gtd/gtd.org"))
+
+(setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline "~/github/org/gtd/inbox.org" "Tasks")
+                               "* TODO %i%?")
+                              ("r" "Tickler" entry
+                               (file+headline "~/github/org/gtd/tickler.org" "Tickler")
+                               "* %i%? \n %U")))
+
+;; set timestamp when refiling
+(setq org-log-refile 'time)
+(setq org-refile-targets '(("~/github/org/gtd/gtd.org" :maxlevel . 3)
+                           ("~/github/org/gtd/someday.org" :level . 1)
+                           ("~/github/org/gtd/tickler.org" :maxlevel . 2)))
 
 (setq gc-cons-threshold 50000000)
 (setq large-file-warning-threshold 100000000)
@@ -155,9 +193,6 @@
    ("C-s" . swiper)
    ("C-c i" . counsel-imenu)
    ("C-x C-f" . counsel-find-file)
-   ("C-x j" . counsel-dired-jump)
-   ("C-x l" . counsel-locate)
-   ("C-c j" . counsel-git)
    ("C-c s" . counsel-projectile-rg)
    ("C-c f" . counsel-recentf)
    ("M-y" . counsel-yank-pop)
@@ -208,8 +243,13 @@
 
 ;; magit config
 (use-package magit
-  :bind (("s-g" . magit-status))
+  :bind (("s-g" . 'save-and-magit-status))
   :config
+  (defun save-and-magit-status ()
+    "Save all buffers before opening magit status."
+    (interactive)
+    (save-some-buffers t)
+    (magit-status))
   ;; find all git projects using magit
   (setq magit-repository-directories
         '(("~/github/" . 1)
@@ -218,41 +258,6 @@
 ;; reload buffers if changes happen in buffers due to git
 (diminish 'auto-revert-mode)
 (global-auto-revert-mode 1)
-
-(use-package perspective
-  :init
-  (persp-mode)
-  ;; hide list of projects in bottom right of modeline
-  (persp-turn-off-modestring))
-
-;; order perspectives in MRU
-;; https://gist.github.com/Bad-ptr/1aca1ec54c3bdb2ee80996eb2b68ad2d#file-persp-mru-el
-(with-eval-after-load "persp-mode"
-  (add-hook 'persp-before-switch-functions
-            #'(lambda (new-persp-name w-or-f)
-                (let ((cur-persp-name (safe-persp-name (get-current-persp))))
-                  (when (member cur-persp-name persp-names-cache)
-                    (setq persp-names-cache
-                          (cons cur-persp-name
-                                (delete cur-persp-name persp-names-cache)))))))
-
-  (add-hook 'persp-renamed-functions
-            #'(lambda (persp old-name new-name)
-                (setq persp-names-cache
-                      (cons new-name (delete old-name persp-names-cache)))))
-
-  (add-hook 'persp-before-kill-functions
-            #'(lambda (persp)
-                (setq persp-names-cache
-                      (delete (safe-persp-name persp) persp-names-cache))))
-
-  (add-hook 'persp-created-functions
-            #'(lambda (persp phash)
-                (when (and (eq phash *persp-hash*)
-                           (not (member (safe-persp-name persp)
-                                        persp-names-cache)))
-                  (setq persp-names-cache
-                        (cons (safe-persp-name persp) persp-names-cache))))))
 
 ;; projectile config
 (use-package projectile
@@ -271,16 +276,13 @@
     (projectile-save-known-projects))
   (use-package counsel-projectile
     :bind
+    ;; open project search
+    ("s-s" . projectile-switch-project)
     ;; fuzzy find file in project
     ("s-f" . counsel-projectile-find-file)
     ;; fuzzy find phrase in project
     (:map projectile-command-map
           ("s" . counsel-projectile-rg)))
-  ;; use perspective to manage project buffers
-  (use-package persp-projectile
-    :bind
-    (:map projectile-mode-map
-          ("s-s" . projectile-persp-switch-project)))
   ;; use git grep to ignore files
   (setq projectile-use-git-grep t)
   ;; use ivy as completion system
@@ -373,6 +375,7 @@
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   (use-package yapfify)
+  (use-package pyimpsort)
   :config
   (eval-after-load 'anaconda-mode
     '(progn
@@ -498,7 +501,10 @@
   (key-chord-define-global "jj" 'ace-swap-window)
   (key-chord-define-global "kk" 'ace-window)
   ;; vim-like
-  (key-chord-define-global "vv" 'er/expand-region))
+  (key-chord-define-global "vv" 'er/expand-region)
+  (key-chord-define-global "gg" 'beginning-of-buffer)
+  (key-chord-define-global "GG" 'end-of-buffer))
+
 
 (use-package ace-window
   :config
@@ -506,7 +512,7 @@
 
 (use-package smartscan
   :init
-  (add-hook 'after-init-hook 'smartscan-mode))
+  (add-hook 'after-init-hook 'global-smartscan-mode))
 
 (use-package multiple-cursors
   :bind (("C-M-c" . mc/edit-lines)
