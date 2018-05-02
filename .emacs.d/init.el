@@ -135,6 +135,7 @@
 
 (set-register ?i (cons 'file "~/github/org/gtd/inbox.org"))
 (set-register ?g (cons 'file "~/github/org/gtd/gtd.org"))
+(set-register ?x (cons 'file "~/github/dotfiles/.emacs.d/init.el"))
 
 (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                (file+headline "~/github/org/gtd/inbox.org" "Tasks")
@@ -225,6 +226,8 @@
        "Not completing files currently")))
   (setq counsel-find-file-at-point t)
   (setq ivy-use-virtual-buffers t)
+  (setq counsel-rg-base-command "rg -S --no-heading --line-number --color never %s . | cut -c -200")
+  (setq counsel-find-file-occur-cmd "ls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 ls -d")
   ;; 2 buffers with the same name will have the path prepended
   (setq ivy-virtual-abbreviate "full")
   (setq ivy-count-format "(%d/%d) ")
@@ -466,7 +469,9 @@
               (unless (eq ibuffer-sorting-mode 'alphabetic)
                 (ibuffer-do-sort-by-alphabetic)))))
 
-(use-package git-link)
+(use-package git-link
+  :config
+  (setq git-link-use-commit t))
 
 (use-package yasnippet
   :diminish yas-global-mode yas-minor-mode
