@@ -52,6 +52,9 @@
 ;; delete-selection mode to overwrite selection
 (delete-selection-mode 1)
 
+;; http://ergoemacs.org/emacs/emacs_subword-mode_superword-mode.html
+(subword-mode 1)
+
 ;; Use ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -378,6 +381,7 @@
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   (use-package yapfify)
   (use-package pyimpsort)
+  (use-package pyenv-mode)
   :config
   (eval-after-load 'anaconda-mode
     '(progn
@@ -505,9 +509,7 @@
   (key-chord-define-global "jj" 'ace-swap-window)
   (key-chord-define-global "kk" 'ace-window)
   ;; vim-like
-  (key-chord-define-global "vv" 'er/expand-region)
-  (key-chord-define-global "gg" 'beginning-of-buffer)
-  (key-chord-define-global "GG" 'end-of-buffer))
+  (key-chord-define-global "vv" 'er/expand-region))
 
 
 (use-package ace-window
