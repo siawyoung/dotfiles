@@ -52,9 +52,6 @@
 ;; delete-selection mode to overwrite selection
 (delete-selection-mode 1)
 
-;; http://ergoemacs.org/emacs/emacs_subword-mode_superword-mode.html
-(subword-mode 1)
-
 ;; Use ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -308,7 +305,12 @@
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
   :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (use-package company-childframe
+    :diminish
+    :config
+    (company-childframe-mode 1)))
 
 ;; aggressive-indent config
 (use-package aggressive-indent
@@ -401,6 +403,11 @@
   :mode ("\\.go\\'" . go-mode)
   :config
   (add-hook 'go-mode-hook (lambda ()
+                            ;; http://ergoemacs.org/emacs/emacs_subword-mode_superword-mode.html
+                            (subword-mode 1)
+                            ;; disable aggressive-indent-mode as a temporary solution to make
+                            ;; company suggestions work properly
+                            (aggressive-indent-mode 0)
                             (add-hook 'before-save-hook #'gofmt-before-save)
                             (setq gofmt-command "goimports")
                             (local-set-key (kbd "M-.") 'godef-jump)
@@ -527,3 +534,22 @@
          ("C-c C-<" . mc/mark-all-like-this)))
 
 (use-package smex)
+
+(use-package avy
+  :config
+  (setq avy-timeout-seconds 0.2)
+  :bind (("s-w" . avy-goto-char-timer)
+         ("M-g g" . avy-goto-line)))
+
+(use-package ivy-posframe
+  :diminish
+  :config
+  (setq ivy-display-functions-alist
+        '((counsel-M-x . ivy-posframe-display-at-point)
+          (projectile-switch-project . ivy-posframe-display-at-point)
+          (counsel-projectile-find-file . ivy-posframe-display-at-point)
+          (ivy-switch-buffer . ivy-posframe-display-at-point)
+          (counsel-find-file . ivy-posframe-display-at-point)
+          (ivy-completion-in-region . ivy-display-function-overlay)
+          ;; fallback
+          (t . ivy-posframe-display))))
