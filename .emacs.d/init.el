@@ -420,7 +420,8 @@
     (require 'golint))
   (use-package gorepl-mode
     :config (add-hook 'go-mode-hook #'gorepl-mode))
-  (use-package company-go))
+  (use-package company-go)
+  (use-package go-playground))
 (setq company-go-show-annotation t)
 
 ;; use 4 spaces in protobuf-mode
