@@ -375,24 +375,27 @@
   :config
   (setq dumb-jump-selector 'ivy))
 
-;; python stuff
-(use-package anaconda-mode
-  :diminish anaconda-mode
-  :init
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  (use-package yapfify)
-  (use-package pyimpsort)
-  (use-package pyenv-mode)
+(use-package lsp-mode
   :config
-  (eval-after-load 'anaconda-mode
-    '(progn
-       (define-key anaconda-mode-map (kbd "M-s") 'yapfify-buffer))))
+  (require 'lsp-imenu)
+  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+  (lsp-define-stdio-client lsp-python "python"
+                           #'projectile-project-root
+                           '("pyls"))
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (lsp-python-enable)))
+  (use-package lsp-ui
+    :config
+    (setq lsp-ui-sideline-ignore-duplicate t)
+    (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+  (use-package company-lsp
+    :config
+    (push 'company-lsp company-backends)))
 
-(use-package company-anaconda
-  :config
-  (eval-after-load "company"
-    '(add-to-list 'company-backends '(company-anaconda))))
+;; python stuff
+(use-package pyimpsort)
+(use-package pyenv-mode)
 
 ;; for Guru, we need to add https://github.com/dominikh/go-mode.el/blob/master/go-guru.el manually to a load path (which we also need to define)
 (add-to-list 'load-path "~/.emacs.d/go/")
