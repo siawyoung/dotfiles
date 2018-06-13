@@ -33,6 +33,11 @@ plugins=(git z)
 
 source $ZSH/oh-my-zsh.sh
 
+# practically unlimited history
+export HISTFILE=/Users/siawyoung/.zsh_history
+export HISTSIZE=999999999
+export SAVEHIST=$HISTSIZE
+
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
