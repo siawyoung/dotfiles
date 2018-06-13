@@ -385,6 +385,9 @@
   (add-hook 'python-mode-hook
             (lambda ()
               (lsp-python-enable)))
+  (use-package lsp-go
+    :config
+    (add-hook 'go-mode-hook #'lsp-go-enable))
   (use-package lsp-ui
     :config
     (setq lsp-ui-sideline-ignore-duplicate t)
@@ -422,6 +425,7 @@
     (add-to-list 'load-path (concat (getenv "GOPATH")  "/src/github.com/golang/lint/misc/emacs"))
     (require 'golint))
   (use-package gorepl-mode
+    :diminish
     :config (add-hook 'go-mode-hook #'gorepl-mode))
   (use-package company-go)
   (use-package go-playground))
