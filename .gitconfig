@@ -34,3 +34,10 @@
         untracked = red
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
+# https://superuser.com/questions/623217/how-to-pull-into-multiple-branches-at-once-with-git
+# update master and stage together
+[alias]
+    sync = "!sh -c 'git checkout --quiet --detach HEAD && \
+                    git fetch origin master:master stage:stage ; \
+                    git checkout --quiet -'"
