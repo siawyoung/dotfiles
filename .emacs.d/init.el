@@ -58,10 +58,6 @@
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; save all buffers when Emacs loses focus
-(add-hook 'focus-out-hook
-          (lambda () (save-some-buffers t)))
-
 ;; load $PATH env variable into emacs
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
@@ -385,9 +381,6 @@
   (add-hook 'python-mode-hook
             (lambda ()
               (lsp-python-enable)))
-  (use-package lsp-go
-    :config
-    (add-hook 'go-mode-hook #'lsp-go-enable))
   (use-package lsp-ui
     :config
     (setq lsp-ui-sideline-ignore-duplicate t)
@@ -534,12 +527,6 @@
 (use-package smartscan
   :init
   (add-hook 'after-init-hook 'global-smartscan-mode))
-
-(use-package multiple-cursors
-  :bind (("C-M-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)))
 
 (use-package smex)
 
