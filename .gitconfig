@@ -41,3 +41,13 @@
     sync = "!sh -c 'git checkout --quiet --detach HEAD && \
                     git fetch origin master:master stage:stage ; \
                     git checkout --quiet -'"
+
+    fresh = "!sh -c 'git sync && \
+                     git checkout master && \
+                     git checkout -b $1' -"
+
+    mstage = "!sh -c 'branch=$(git rev-parse --abbrev-ref HEAD); \
+                      git sync && \
+                      git checkout stage && \
+                      git merge $branch' -"
+
