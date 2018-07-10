@@ -64,7 +64,7 @@
   (exec-path-from-shell-copy-env "GOPATH"))
 
 ;; set universal font size to 17px
-(set-face-attribute 'default nil :height 170)
+(set-face-attribute 'default nil :height 160 :width 'condensed)
 
 (setq backup-by-copying t      ; don't clobber symlinks
       backup-directory-alist '(("." . "~/.emacs-saves"))    ; don't litter my fs tree
@@ -156,8 +156,28 @@
 ;; load gruvbox
 (load-theme 'gruvbox t)
 
+;; load font faces
+(use-package dynamic-fonts
+  :init
+  (progn (setq dynamic-fonts-preferred-proportional-fonts
+               '("Source Sans Pro" "DejaVu Sans" "Helvetica"))
+         (setq dynamic-fonts-preferred-monospace-fonts
+               '("SF Mono" "DejaVu Sans Mono" "Inconsolata" "Monaco" "Consolas" "Menlo")))
+  (dynamic-fonts-setup))
+
 ;; make selected text background easier to see
 (set-face-attribute 'region nil :background "#666")
+
+(use-package evil
+  :init
+  (setq evil-want-C-u-scroll t)
+  (evil-mode)
+  :config
+  (use-package evil-escape
+    :diminish evil-escape-mode
+    :init
+    (setq-default evil-escape-key-sequence "kj")
+    (evil-escape-mode)))
 
 (use-package centered-cursor-mode
   :diminish centered-cursor-mode
@@ -514,8 +534,6 @@
   ;; for double-press on same key, increase the delay a bit more
   (setq key-chord-one-key-delay 0.3)
   (key-chord-mode 1)
-  (key-chord-define-global "jj" 'ace-swap-window)
-  (key-chord-define-global "kk" 'ace-window)
   ;; vim-like
   (key-chord-define-global "vv" 'er/expand-region))
 
