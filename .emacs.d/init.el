@@ -173,6 +173,9 @@
   (setq evil-want-C-u-scroll t)
   (evil-mode)
   :config
+  (use-package evil-surround
+    :config
+    (global-evil-surround-mode 1))
   (use-package evil-escape
     :diminish evil-escape-mode
     :init
