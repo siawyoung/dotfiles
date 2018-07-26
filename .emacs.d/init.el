@@ -516,13 +516,6 @@
   (yas-global-mode 1)
   (global-set-key (kbd "M-/") 'company-yasnippet))
 
-(use-package golden-ratio
-  :diminish golden-ratio-mode
-  :init
-  (add-hook 'after-init-hook 'golden-ratio-mode)
-  :config
-  (add-to-list 'golden-ratio-extra-commands 'ace-window))
-
 (use-package crux
   :bind (("C-c C" . crux-cleanup-buffer-or-region)
          ("C-c D" . crux-delete-file-and-buffer)
