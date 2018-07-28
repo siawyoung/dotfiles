@@ -8,10 +8,6 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 export PATH="$HOME/.gotools:$PATH"
 
-# yarn config
-# Add Yarn global binaries path to PATH
-export PATH="$PATH:`yarn global bin`"
-
 # pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
