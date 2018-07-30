@@ -95,3 +95,6 @@ alias d="docker"
 alias dc="docker-compose"
 alias dm="docker-machine"
 alias eval_default="eval \$(docker-machine env default)"
+
+# init direnv
+eval "$(direnv hook zsh)"
