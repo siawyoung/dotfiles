@@ -61,7 +61,8 @@
 ;; load $PATH env variable into emacs
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "GOPATH"))
+  (exec-path-from-shell-copy-env "GOPATH")
+  (exec-path-from-shell-copy-env "GOROOT"))
 
 ;; set universal font size to 17px
 (set-face-attribute 'default nil :height 160 :width 'condensed)
