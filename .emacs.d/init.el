@@ -565,3 +565,6 @@
           (ivy-completion-in-region . ivy-display-function-overlay)
           ;; fallback
           (t . ivy-posframe-display))))
+
+;; temporary hack https://github.com/syl20bnr/spacemacs/issues/11152
+(setq projectile-keymap-prefix (kbd "C-c C-p"))
