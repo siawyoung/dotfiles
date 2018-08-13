@@ -58,6 +58,8 @@
 ;; prefer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(use-package exec-path-from-shell)
+
 ;; load $PATH env variable into emacs
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
@@ -417,10 +419,6 @@
 (use-package pyimpsort)
 (use-package pyenv-mode)
 
-;; for Guru, we need to add https://github.com/dominikh/go-mode.el/blob/master/go-guru.el manually to a load path (which we also need to define)
-(add-to-list 'load-path "~/.emacs.d/go/")
-(require 'go-guru)
-
 ;; golang config
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
@@ -447,6 +445,10 @@
   (use-package company-go)
   (use-package go-playground))
 (setq company-go-show-annotation t)
+
+;; for Guru, we need to add https://github.com/dominikh/go-mode.el/blob/master/go-guru.el manually to a load path (which we also need to define)
+(add-to-list 'load-path "~/.emacs.d/go/")
+(require 'go-guru)
 
 ;; use 4 spaces in protobuf-mode
 (use-package protobuf-mode

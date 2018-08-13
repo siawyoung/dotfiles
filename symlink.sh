@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ln -s ~/github/dotfiles/.direnvrc ~/
 ln -s ~/github/dotfiles/.gitconfig ~/
 ln -s ~/github/dotfiles/.gitignore_global ~/

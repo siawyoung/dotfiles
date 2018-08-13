@@ -14,7 +14,6 @@ brew 'go'
 brew 'hub'
 brew 'neovim'
 brew 'node'
-brew 'ntfs-3g'
 brew 'pyenv'
 brew 'pyenv-virtualenv'
 brew 'python'
@@ -24,6 +23,7 @@ brew 'tmux'
 brew 'wget'
 brew 'zsh'
 cask 'osxfuse'
+brew 'ntfs-3g'
 
 # local services
 brew 'memcached', restart_service: true
@@ -76,4 +76,4 @@ cask 'telegram'
 cask 'the-unarchiver'
 cask 'transmission'
 cask 'tunnelblick'
-cask 'vagrant
+cask 'vagrant'
