@@ -419,6 +419,12 @@
 (use-package pyimpsort)
 (use-package pyenv-mode)
 
+;; for autopep, add manually
+;; (add-to-list 'load-path "~/.emacs.d/python/")
+;; (require 'autopep8)
+;; (define-key evil-normal-state-map "gq" 'autopep8)
+(use-package py-autopep8)
+
 ;; golang config
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
@@ -568,3 +574,5 @@
 
 ;; temporary hack https://github.com/syl20bnr/spacemacs/issues/11152
 (setq projectile-keymap-prefix (kbd "C-c C-p"))
+
+(put 'narrow-to-region 'disabled nil)
