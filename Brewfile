@@ -42,15 +42,10 @@ brew 'kubectx'
 # utilities
 brew 'pandoc'
 brew 'the_silver_searcher'
+brew 'ripgrep'
 brew 'watchman'
 brew 'yarn'
 brew 'youtube-dl'
-
-# other languages of curiosity
-brew 'elixir'
-brew 'erlang'
-brew 'haskell-stack'
-brew 'leiningen'
 
 # casks
 cask '1password'
@@ -58,7 +53,6 @@ cask 'appcleaner'
 cask 'backblaze'
 cask 'bettertouchtool'
 cask 'discord'
-cask 'docker-toolbox'
 cask 'emacs'
 cask 'firefox-developer-edition'
 cask 'google-chrome'
