@@ -66,28 +66,6 @@ export LC_ALL="en_US.UTF-8"
 # https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# zsh-histdb config
-source $HOME/.oh-my-zsh/custom/plugins/zsh-histdb/sqlite-history.zsh
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd histdb-update-outcome
-
-# from https://github.com/larkery/zsh-histdb/issues/25#issuecomment-356195799
-histdb-fzf-widget() {
-    local selected num
-    setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
-    selected=( $(histdb --sep 999 | awk -F'999' '{print $4}' |
-                     FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
-
-    LBUFFER=$selected
-    zle redisplay
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-
-    return $ret
-}
-
-zle     -N   histdb-fzf-widget
-bindkey '^R' histdb-fzf-widget
-
 # Use silver searcher to ignore gitignored files when fuzzy searching
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
