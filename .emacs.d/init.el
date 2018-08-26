@@ -235,6 +235,9 @@
   :init
   (add-hook 'after-init-hook 'ivy-mode)
   :config
+  (use-package ivy-rich
+    :config
+    (ivy-rich-mode 1))
   (defun ivy-dired ()
     (interactive)
     (if ivy--directory
@@ -566,7 +569,6 @@
         '((counsel-M-x . ivy-posframe-display-at-point)
           (projectile-switch-project . ivy-posframe-display-at-point)
           (counsel-projectile-find-file . ivy-posframe-display-at-point)
-          (ivy-switch-buffer . ivy-posframe-display-at-point)
           (counsel-find-file . ivy-posframe-display-at-point)
           (ivy-completion-in-region . ivy-display-function-overlay)
           ;; fallback
