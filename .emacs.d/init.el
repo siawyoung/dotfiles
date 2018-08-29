@@ -455,9 +455,11 @@
   (use-package go-playground))
 (setq company-go-show-annotation t)
 
+(use-package go-guru)
+
 ;; for Guru, we need to add https://github.com/dominikh/go-mode.el/blob/master/go-guru.el manually to a load path (which we also need to define)
-(add-to-list 'load-path "~/.emacs.d/go/")
-(require 'go-guru)
+;; (add-to-list 'load-path "~/.emacs.d/go/")
+;; (require 'go-guru)
 
 ;; use 4 spaces in protobuf-mode
 (use-package protobuf-mode
