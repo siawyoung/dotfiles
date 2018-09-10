@@ -51,3 +51,5 @@
                       git checkout stage && \
                       git merge $branch' -"
 
+    recent = "!sh -c 'git for-each-ref --sort=-committerdate refs/heads/ \
+        --format=\"%(committerdate:short) %(authorname) %(refname:short)\"'"

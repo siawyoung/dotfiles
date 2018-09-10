@@ -580,3 +580,9 @@
 (setq projectile-keymap-prefix (kbd "C-c C-p"))
 
 (put 'narrow-to-region 'disabled nil)
+
+(defun replace-regexp-in-defun ()
+  (interactive)
+  (progn
+    (mark-defun)
+    (call-interactively 'query-replace-regexp)))
