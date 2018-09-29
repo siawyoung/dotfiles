@@ -26,7 +26,6 @@ cask 'osxfuse'
 brew 'ntfs-3g'
 
 # local services
-brew 'memcached', restart_service: true
 brew 'postgresql'
 brew 'redis', restart_service: true
 brew 'sqlite'
@@ -60,6 +59,7 @@ cask 'iterm2'
 cask 'java'
 cask 'karabiner-elements'
 cask 'nvalt'
+cask 'omnifocus'
 cask 'postgres'
 cask 'postman'
 cask 'slack'

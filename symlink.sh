@@ -9,3 +9,4 @@ ln -s ~/github/dotfiles/.zshrc ~/
 ln -s ~/github/dotfiles/.zshenv ~/
 mkdir -p ~/.config/nvim
 ln -s ~/github/dotfiles/.vimrc ~/.config/nvim/init.vim
+ln -s ~/github/dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
