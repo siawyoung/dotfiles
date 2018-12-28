@@ -195,13 +195,15 @@
   :config
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+  (evil-define-key 'normal 'global "s" 'avy-goto-char-timer)
   (use-package evil-surround
     :config
     (global-evil-surround-mode 1))
   (use-package evil-escape
     :diminish evil-escape-mode
     :init
-    (setq-default evil-escape-key-sequence "kj")
+    (setq-default evil-escape-key-sequence "jk")
+    (setq-default evil-escape-unordered-key-sequence t)
     (evil-escape-mode)))
 
 (use-package centered-cursor-mode
@@ -248,9 +250,7 @@
    ("C-d" . ivy-dired)
    ("C-o" . ivy-occur)
    ("<return>" . ivy-alt-done)
-   ("M-<return>" . ivy-immediate-done)
-   :map read-expression-map
-   ("C-r" . counsel-expression-history))
+   ("M-<return>" . ivy-immediate-done))
   :init
   (add-hook 'after-init-hook 'ivy-mode)
   :config
@@ -435,11 +435,6 @@
 ;; python stuff
 (use-package pyimpsort)
 (use-package pyenv-mode)
-
-;; for autopep, add manually
-;; (add-to-list 'load-path "~/.emacs.d/python/")
-;; (require 'autopep8)
-;; (define-key evil-normal-state-map "gq" 'autopep8)
 (use-package py-autopep8)
 
 ;; golang config
@@ -471,10 +466,6 @@
 
 (use-package go-guru)
 
-;; for Guru, we need to add https://github.com/dominikh/go-mode.el/blob/master/go-guru.el manually to a load path (which we also need to define)
-;; (add-to-list 'load-path "~/.emacs.d/go/")
-;; (require 'go-guru)
-
 ;; use 4 spaces in protobuf-mode
 (use-package protobuf-mode
   :init
@@ -485,8 +476,7 @@
             (lambda () (c-add-style "my-style" my-protobuf-style t))))
 
 ;; vim-like expand-regions
-(use-package expand-region
-  :bind (("C-=" . er/expand-region)))
+(use-package expand-region)
 
 ;; guru-mode
 (use-package guru-mode
@@ -501,12 +491,6 @@
 ;; pdf
 (use-package pdf-tools
   :mode (("\\.pdf\\'" . pdf-view-mode))
-  ;; :bind
-  ;; (:map pdf-view-mode-map
-  ;;       (("h" . pdf-annot-add-highlight-markup-annotation)
-  ;;        ("t" . pdf-annot-add-text-annotation)
-  ;;        ("D" . pdf-annot-delete)
-  ;;        ("C-s" . isearch-forward)))
   :config
   ;; More fine-grained resizing (10%)
   (setq pdf-view-resize-factor 1.1)
@@ -541,7 +525,6 @@
 (use-package crux
   :bind (("C-c C" . crux-cleanup-buffer-or-region)
          ("C-c D" . crux-delete-file-and-buffer)
-         ("C-a" . crux-move-beginning-of-line)
          ("M-o" . crux-smart-open-line)
          ("C-c r" . crux-rename-file-and-buffer)
          ("M-D" . crux-duplicate-and-comment-current-line-or-region)
@@ -550,11 +533,10 @@
 (use-package key-chord
   :config
   ;; for double-press on same key, increase the delay a bit more
-  (setq key-chord-one-key-delay 0.3)
+  (setq key-chord-one-key-delay 0.5)
   (key-chord-mode 1)
   ;; vim-like
   (key-chord-define-global "vv" 'er/expand-region))
-
 
 (use-package ace-window
   :config
@@ -564,9 +546,8 @@
 
 (use-package avy
   :config
-  (setq avy-timeout-seconds 0.2)
-  :bind (("s-w" . avy-goto-char-timer)
-         ("M-g g" . avy-goto-line)))
+  (setq avy-timeout-seconds 0.3)
+  :bind (("s-w" . avy-goto-char-timer)))
 
 (use-package ivy-posframe
   :diminish
@@ -590,3 +571,7 @@
 (use-package olivetti
   :config
   (setq olivetti-body-width 80))
+
+(use-package color-identifiers-mode
+  :init
+  (add-hook 'after-init-hook 'global-color-identifiers-mode))
