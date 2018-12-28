@@ -160,6 +160,14 @@
 (with-eval-after-load 'subword
   (diminish 'subword-mode))
 
+;; desktop mode to save emacs state
+(require 'desktop)
+(desktop-save-mode 1)
+(setq desktop-restore-eager 10)
+;; https://github.com/tumashu/company-posframe#work-better-with-desktopel
+(push '(company-posframe-mode . nil)
+      desktop-minor-mode-table)
+
 ;;;
 ;; Third party package config
 ;;;
@@ -343,11 +351,10 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
-  (use-package company-childframe
+  (use-package company-posframe
     :diminish company-posframe-mode
-    :diminish
     :config
-    (company-childframe-mode 1)))
+    (company-posframe-mode 1)))
 
 ;; aggressive-indent config
 (use-package aggressive-indent
@@ -563,15 +570,7 @@
 
 (use-package ivy-posframe
   :diminish
-  :config
-  (setq ivy-display-functions-alist
-        '((counsel-M-x . ivy-posframe-display-at-point)
-          (projectile-switch-project . ivy-posframe-display-at-point)
-          (counsel-projectile-find-file . ivy-posframe-display-at-point)
-          (counsel-find-file . ivy-posframe-display-at-point)
-          (ivy-completion-in-region . ivy-display-function-overlay)
-          ;; fallback
-          (t . ivy-posframe-display))))
+  :config)
 
 ;; temporary hack https://github.com/syl20bnr/spacemacs/issues/11152
 (setq projectile-keymap-prefix (kbd "C-c C-p"))
