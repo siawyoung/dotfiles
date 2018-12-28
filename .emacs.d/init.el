@@ -152,6 +152,14 @@
 (setq gc-cons-threshold 50000000)
 (setq large-file-warning-threshold 100000000)
 
+;; hide undo-tree manually
+(eval-after-load "undo-tree"
+  '(diminish 'undo-tree-mode))
+
+;; hide subword-mode manually
+(with-eval-after-load 'subword
+  (diminish 'subword-mode))
+
 ;;;
 ;; Third party package config
 ;;;
@@ -172,6 +180,7 @@
 (set-face-attribute 'region nil :background "#666")
 
 (use-package evil
+  :diminish evil-mode
   :init
   (setq evil-want-C-u-scroll t)
   (evil-mode)
@@ -335,6 +344,7 @@
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (use-package company-childframe
+    :diminish company-posframe-mode
     :diminish
     :config
     (company-childframe-mode 1)))
@@ -404,11 +414,6 @@
 
 (use-package lsp-mode
   :config
-  (require 'lsp-imenu)
-  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
-  (lsp-define-stdio-client lsp-python "python"
-                           #'projectile-project-root
-                           '("pyls"))
   (add-hook 'python-mode-hook
             (lambda ()
               (lsp-python-enable)))
@@ -482,12 +487,6 @@
   :init
   (add-hook 'after-init-hook 'guru-global-mode))
 
-;; restclient
-(use-package restclient
-  :config
-  (eval-after-load "restclient"
-    '(add-to-list 'company-backends 'company-restclient)))
-
 ;; wgrep
 (use-package wgrep
   :config (setq wgrep-enable-key "w"))
@@ -554,10 +553,6 @@
   :config
   (setq aw-swap-invert t))
 
-(use-package smartscan
-  :init
-  (add-hook 'after-init-hook 'global-smartscan-mode))
-
 (use-package smex)
 
 (use-package avy
@@ -588,3 +583,11 @@
   (progn
     (mark-defun)
     (call-interactively 'query-replace-regexp)))
+(use-package markdown-mode
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)))
+
+(use-package olivetti
+  :config
+  (setq olivetti-body-width 80))
