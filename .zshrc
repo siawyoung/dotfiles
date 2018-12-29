@@ -85,3 +85,6 @@ alias eval_default="eval \$(docker-machine env default)"
 
 # init direnv
 eval "$(direnv hook zsh)"
+
+# for bins installed in alternative manners (not homebrew, etc)
+export PATH="$PATH:$HOME/bin"
