@@ -6,8 +6,4 @@
 !init.el
 
 # personal snippets
-!snippets
-
-# Check in go-guru.el because its not installable by use-package
-# Check to see if I really use it - remove it if not
-!go/go-guru.el
+!/snippets/

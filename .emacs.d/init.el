@@ -519,8 +519,7 @@
   :config
   (use-package yasnippet-snippets)
   (add-to-list 'yas-snippet-dirs yasnippet-snippets-dir)
-  (yas-global-mode 1)
-  (global-set-key (kbd "M-/") 'company-yasnippet))
+  (yas-global-mode 1))
 
 (use-package crux
   :bind (("C-c C" . crux-cleanup-buffer-or-region)

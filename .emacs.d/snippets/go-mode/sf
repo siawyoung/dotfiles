@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: simple-for
+# key: sf
+# --
+
+for _, $1 := range $1 {
+    $2
+}
