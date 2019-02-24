@@ -454,16 +454,6 @@
   (delete 'elpy-module-highlight-indentation elpy-modules)
   (delete 'elpy-module-flymake elpy-modules))
 
-
-;; (defun ha/elpy-goto-definition ()
-;;   (interactive)
-;;   (condition-case err
-;;       (elpy-goto-definition)
-;;     ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
-
-;; :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
-;;                            ha/elpy-goto-definition)))
-
 ;; golang config
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
@@ -519,14 +509,6 @@
 
 (use-package dockerfile-mode)
 
-(use-package ibuffer-vc
-  :init
-  (add-hook 'ibuffer-hook
-            (lambda()
-              (ibuffer-vc-set-filter-groups-by-vc-root)
-              (unless (eq ibuffer-sorting-mode 'alphabetic)
-                (ibuffer-do-sort-by-alphabetic)))))
-
 (use-package git-link
   :config
   (setq git-link-use-commit t))
@@ -554,10 +536,6 @@
   ;; vim-like
   (key-chord-define-global "vv" 'er/expand-region))
 
-(use-package ace-window
-  :config
-  (setq aw-swap-invert t))
-
 (use-package smex)
 
 (use-package avy
@@ -568,9 +546,6 @@
 (use-package ivy-posframe
   :diminish
   :config)
-
-;; temporary hack https://github.com/syl20bnr/spacemacs/issues/11152
-(setq projectile-keymap-prefix (kbd "C-c C-p"))
 
 (put 'narrow-to-region 'disabled nil)
 
