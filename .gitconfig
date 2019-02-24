@@ -6,7 +6,7 @@
         helper = osxkeychain
 
 [push]
-        default = simple
+	default = current
 
 [status]
         showUntrackedFiles = all
@@ -53,3 +53,5 @@
 
     recent = "!sh -c 'git for-each-ref --sort=-committerdate refs/heads/ \
         --format=\"%(committerdate:short) %(authorname) %(refname:short)\"'"
+[github]
+	user = siawyoung

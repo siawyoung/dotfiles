@@ -15,6 +15,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
 
 ;; use-package
@@ -168,12 +169,29 @@
 (push '(company-posframe-mode . nil)
       desktop-minor-mode-table)
 
+;; prune unused buffers with midnight-mode
+(require 'midnight)
+(defvar clean-buffer-list-kill-never-buffer-names-init
+  clean-buffer-list-kill-never-buffer-names
+  "Init value for clean-buffer-list-kill-never-buffer-names.")
+(setq clean-buffer-list-kill-never-buffer-names
+      (append
+       '("*Kill Ring*" "*eshell*" "*scratch*")
+       clean-buffer-list-kill-never-buffer-names-init))
+;; kill everything, clean-buffer-list is very intelligent at not killing
+;; unsaved buffer.
+(setq clean-buffer-list-kill-regexps '("^.*$"))
+;; clean buffers before exiting emas
+(add-hook 'kill-emacs-hook 'clean-buffer-list)
+
 ;;;
 ;; Third party package config
 ;;;
 
 ;; load gruvbox
-(load-theme 'gruvbox t)
+(use-package gruvbox-theme
+  :init
+  (load-theme 'gruvbox t))
 
 ;; load font faces
 (use-package dynamic-fonts
@@ -277,10 +295,6 @@
   (setq ivy-count-format "(%d/%d) ")
   (setq ivy-display-style 'fancy)
   (setq ivy-initial-inputs-alist nil)
-  (setq ivy-re-builders-alist
-        '((ivy-switch-buffer . ivy--regex-plus)
-          (swiper . ivy--regex-plus)
-          (t . ivy--regex-fuzzy)))
   (ivy-set-actions
    t
    '(("I" insert "insert"))))
@@ -305,6 +319,9 @@
 ;; reload buffers if changes happen in buffers due to git
 (diminish 'auto-revert-mode)
 (global-auto-revert-mode 1)
+
+(use-package forge
+  :after magit)
 
 ;; projectile config
 (use-package projectile
@@ -363,7 +380,9 @@
   (add-hook 'after-init-hook 'aggressive-indent-global-mode))
 
 ;; easy-kill config
-(global-set-key [remap kill-ring-save] 'easy-kill)
+(use-package easy-kill
+  :config
+  (global-set-key [remap kill-ring-save] 'easy-kill))
 
 ;; shows unbalanced delimiters
 (use-package rainbow-delimiters
@@ -419,23 +438,31 @@
   :config
   (setq dumb-jump-selector 'ivy))
 
-(use-package lsp-mode
-  :config
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (lsp-python-enable)))
-  (use-package lsp-ui
-    :config
-    (setq lsp-ui-sideline-ignore-duplicate t)
-    (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-  (use-package company-lsp
-    :config
-    (push 'company-lsp company-backends)))
-
 ;; python stuff
 (use-package pyimpsort)
 (use-package pyenv-mode)
 (use-package py-autopep8)
+
+(use-package elpy
+  :commands elpy-enable
+  :init (with-eval-after-load 'python (elpy-enable))
+
+  :bind
+  (("C-c C-j" . elpy-goto-definition))
+
+  :config
+  (delete 'elpy-module-highlight-indentation elpy-modules)
+  (delete 'elpy-module-flymake elpy-modules))
+
+
+;; (defun ha/elpy-goto-definition ()
+;;   (interactive)
+;;   (condition-case err
+;;       (elpy-goto-definition)
+;;     ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
+
+;; :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
+;;                            ha/elpy-goto-definition)))
 
 ;; golang config
 (use-package go-mode
@@ -487,16 +514,6 @@
 ;; wgrep
 (use-package wgrep
   :config (setq wgrep-enable-key "w"))
-
-;; pdf
-(use-package pdf-tools
-  :mode (("\\.pdf\\'" . pdf-view-mode))
-  :config
-  ;; More fine-grained resizing (10%)
-  (setq pdf-view-resize-factor 1.1)
-
-  ;; Install pdf tools
-  (pdf-tools-install))
 
 (use-package json-mode)
 
@@ -562,6 +579,7 @@
   (progn
     (mark-defun)
     (call-interactively 'query-replace-regexp)))
+
 (use-package markdown-mode
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
@@ -571,6 +589,25 @@
   :config
   (setq olivetti-body-width 80))
 
-(use-package color-identifiers-mode
-  :init
-  (add-hook 'after-init-hook 'global-color-identifiers-mode))
+
+(defun duplicate-current-line-or-region (arg)
+  "Duplicates the current line or region ARG times.
+If there's no region, the current line will be duplicated. However, if
+there's a region, all lines that region covers will be duplicated."
+  (interactive "p")
+  (let (beg end (origin (point)))
+    (if (and mark-active (> (point) (mark)))
+        (exchange-point-and-mark))
+    (setq beg (line-beginning-position))
+    (if mark-active
+        (exchange-point-and-mark))
+    (setq end (line-end-position))
+    (let ((region (buffer-substring-no-properties beg end)))
+      (dotimes (i arg)
+        (goto-char end)
+        (newline)
+        (insert region)
+        (setq end (point)))
+      (goto-char (+ origin (* (length region) arg) arg)))))
+
+(global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
