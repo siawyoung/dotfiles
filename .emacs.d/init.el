@@ -288,7 +288,6 @@
        "Not completing files currently")))
   (setq counsel-find-file-at-point t)
   (setq ivy-use-virtual-buffers t)
-  (setq counsel-rg-base-command "rg -S --no-heading --line-number --color never %s . | cut -c -200")
   (setq counsel-find-file-occur-cmd "ls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 ls -d")
   ;; 2 buffers with the same name will have the path prepended
   (setq ivy-virtual-abbreviate "full")
@@ -550,6 +549,7 @@
 (put 'narrow-to-region 'disabled nil)
 
 (defun replace-regexp-in-defun ()
+  "Call query-replace-regexp with the current defun"
   (interactive)
   (progn
     (mark-defun)
