@@ -286,7 +286,6 @@
             (goto-char (match-beginning 0))))
       (user-error
        "Not completing files currently")))
-  (setq counsel-find-file-at-point t)
   (setq ivy-use-virtual-buffers t)
   (setq counsel-find-file-occur-cmd "ls -a | grep -i -E '%s' | tr '\\n' '\\0' | xargs -0 ls -d")
   ;; 2 buffers with the same name will have the path prepended
@@ -586,3 +585,6 @@ there's a region, all lines that region covers will be duplicated."
       (goto-char (+ origin (* (length region) arg) arg)))))
 
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
+
+(setq org-src-fontify-natively t)
+

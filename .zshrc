@@ -38,8 +38,7 @@ export HISTFILE=/Users/siawyoung/.zsh_history
 export HISTSIZE=999999999
 export SAVEHIST=$HISTSIZE
 
-export VISUAL=nvim
-export EDITOR="$VISUAL"
+export EDITOR="emacsclient -nw"
 
 alias zshconfig="vim ~/.zshrc"
 alias rzsh="source ~/.zshrc"

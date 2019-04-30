@@ -9,6 +9,10 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 export PATH="$GOROOT/bin:$PATH"
 export PATH="$HOME/.gotools:$PATH"
+export PATH="$GOPATH/src/github.com/carousell/carousell-go/commons/tools:$PATH"
+
+# python config
+export PYTHONSTARTUP="$HOME/.pythonstartup"
 
 # pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
