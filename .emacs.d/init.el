@@ -209,11 +209,15 @@
   :diminish evil-mode
   :init
   (setq evil-want-C-u-scroll t)
+  (setq evil-want-keybinding nil)
   (evil-mode)
   :config
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
   (evil-define-key 'normal 'global "s" 'avy-goto-char-timer)
+  (use-package evil-collection
+    :config
+    (evil-collection-init 'deadgrep))
   (use-package evil-surround
     :config
     (global-evil-surround-mode 1))
@@ -587,6 +591,9 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
 (setq org-src-fontify-natively t)
+
+
+(use-package deadgrep)
 
 (use-package js2-mode
   :hook ((js2-mode . (lambda ()
