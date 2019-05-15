@@ -184,6 +184,9 @@
 ;; clean buffers before exiting emas
 (add-hook 'kill-emacs-hook 'clean-buffer-list)
 
+;; tramp
+(setq tramp-default-method "ssh")
+
 ;;;
 ;; Third party package config
 ;;;
