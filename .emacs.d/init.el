@@ -588,3 +588,39 @@ there's a region, all lines that region covers will be duplicated."
 
 (setq org-src-fontify-natively t)
 
+(use-package js2-mode
+  :hook ((js2-mode . (lambda ()
+                       (flycheck-mode))))
+  :config
+  ;; have 2 space indentation by default
+  (setq js-indent-level 2
+        js2-basic-offset 2
+        js-chain-indent t)
+
+  ;; use eslint_d insetad of eslint for faster linting
+  (setq flycheck-javascript-eslint-executable "eslint_d")
+
+  ;; Try to highlight most ECMA built-ins
+  (setq js2-highlight-level 3)
+
+  ;; turn off all warnings in js2-mode
+  (setq js2-mode-show-parse-errors t)
+  (setq js2-mode-show-strict-warnings nil)
+  (setq js2-strict-missing-semi-warning nil))
+
+(use-package eslintd-fix)
+
+(use-package prettier-js
+  :hook ((js2-mode . prettier-js-mode)
+         (rjsx-mode . prettier-js-mode)))
+
+(use-package add-node-modules-path
+  :hook ((js2-mode . add-node-modules-path)
+         (rjsx-mode . add-node-modules-path)))
+
+(use-package rjsx-mode
+  :after js2-mode
+  :mode (("\\.js$" . rjsx-mode))
+  :hook (rjsx-mode . (lambda ()
+                       (flycheck-mode)
+                       (aggressive-indent-mode 0))))
