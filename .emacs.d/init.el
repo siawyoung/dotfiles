@@ -8,9 +8,6 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (if (file-exists-p custom-file) (load custom-file))
 
-;; load secrets
-;; (load-file "~/.emacs.d/secrets.el")
-
 ;; add package archives
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -106,9 +103,7 @@
   (interactive)
   (load-file "~/.emacs.d/init.el"))
 
-;; eshell
-(require 'eshell)
-(require 'em-smart)
+(setq explicit-shell-file-name "/usr/local/bin/zsh")
 
 ;; org-mode
 (use-package org
@@ -122,33 +117,6 @@
    ;; Add syntax highlighting to code blocks
    org-src-fontify-natively t
    org-src-tab-acts-natively t))
-
-;; set timestamp when marked as done
-(setq org-log-done 'time)
-
-(setq org-return-follows-link t)
-;; soft-wrap lines
-(setq org-startup-truncated nil)
-(setq org-agenda-files '("~/github/org/gtd/inbox.org"
-                         "~/github/org/gtd/gtd.org"
-                         "~/github/org/gtd/tickler.org"))
-
-(set-register ?i (cons 'file "~/github/org/gtd/inbox.org"))
-(set-register ?g (cons 'file "~/github/org/gtd/gtd.org"))
-(set-register ?x (cons 'file "~/github/dotfiles/.emacs.d/init.el"))
-
-(setq org-capture-templates '(("t" "Todo [inbox]" entry
-                               (file+headline "~/github/org/gtd/inbox.org" "Tasks")
-                               "* TODO %i%?")
-                              ("r" "Tickler" entry
-                               (file+headline "~/github/org/gtd/tickler.org" "Tickler")
-                               "* %i%? \n %U")))
-
-;; set timestamp when refiling
-(setq org-log-refile 'time)
-(setq org-refile-targets '(("~/github/org/gtd/gtd.org" :maxlevel . 3)
-                           ("~/github/org/gtd/someday.org" :level . 1)
-                           ("~/github/org/gtd/tickler.org" :maxlevel . 2)))
 
 (setq gc-cons-threshold 50000000)
 (setq large-file-warning-threshold 100000000)
@@ -187,6 +155,10 @@
 ;; tramp
 (setq tramp-default-method "ssh")
 
+;; bind tmux-style back forth buffer navigation
+(global-set-key (kbd "C-x h") 'previous-buffer)
+(global-set-key (kbd "C-x l") 'next-buffer)
+
 ;;;
 ;; Third party package config
 ;;;
@@ -220,7 +192,9 @@
   (evil-define-key 'normal 'global "s" 'avy-goto-char-timer)
   (use-package evil-collection
     :config
-    (evil-collection-init 'deadgrep))
+    (evil-collection-init 'deadgrep)
+    (evil-collection-init 'dired)
+    (evil-collection-init 'ibuffer))
   (use-package evil-surround
     :config
     (global-evil-surround-mode 1))
@@ -230,6 +204,11 @@
     (setq-default evil-escape-key-sequence "jk")
     (setq-default evil-escape-unordered-key-sequence t)
     (evil-escape-mode)))
+
+;; make C-d do evil-scroll-down instead of comint-delchar-or-maybe-eof
+;; in comint/shell-mode
+(with-eval-after-load 'comint
+  (define-key comint-mode-map "\C-d" nil))
 
 (use-package centered-cursor-mode
   :diminish centered-cursor-mode
@@ -253,7 +232,6 @@
   ;; hide "~/github" prefix in mode-line
   (add-to-list 'sml/replacer-regexp-list '("^~/github" "")))
 
-;; counsel config
 (use-package counsel
   :diminish ivy-mode
   :bind
@@ -267,10 +245,6 @@
    ("M-y" . counsel-yank-pop)
    :map swiper-map
    ("C-r" . ivy-previous-line)
-   :map help-map
-   ("f" . counsel-describe-function)
-   ("v" . counsel-describe-variable)
-   ("l" . counsel-info-lookup-symbol)
    :map ivy-minibuffer-map
    ("C-d" . ivy-dired)
    ("C-o" . ivy-occur)
@@ -304,10 +278,8 @@
    t
    '(("I" insert "insert"))))
 
-;; flx
 (use-package flx)
 
-;; magit config
 (use-package magit
   :bind (("s-g" . 'save-and-magit-status))
   :config
@@ -328,7 +300,9 @@
 (use-package forge
   :after magit)
 
-;; projectile config
+(use-package evil-magit
+  :after evil magit)
+
 (use-package projectile
   ;; show only the project name in mode line
   :delight '(:eval (concat " " (projectile-project-name)))
@@ -356,12 +330,10 @@
   ;; use ivy as completion system
   (setq projectile-completion-system 'ivy))
 
-;; diff-hl config
 (use-package diff-hl
   :config
   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
 
-;; company config
 (use-package company
   :diminish company-mode
   :bind
@@ -378,13 +350,11 @@
     :config
     (company-posframe-mode 1)))
 
-;; aggressive-indent config
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
   :init
   (add-hook 'after-init-hook 'aggressive-indent-global-mode))
 
-;; easy-kill config
 (use-package easy-kill
   :config
   (global-set-key [remap kill-ring-save] 'easy-kill))
@@ -400,7 +370,6 @@
   :init
   (add-hook 'after-init-hook 'smartparens-global-mode)
   :config
-  ;; Org-mode config
   (sp-with-modes 'org-mode
     (sp-local-pair "'" nil :unless '(sp-point-after-word-p))
     (sp-local-pair "*" "*" :actions '(insert wrap) :unless '(sp-point-after-word-p sp-point-at-bol-p) :wrap "C-*" :skip-match 'sp--org-skip-asterisk)
@@ -410,7 +379,6 @@
     (sp-local-pair "=" "=" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")))
     (sp-local-pair "«" "»")))
 
-;; flycheck config
 (use-package flycheck
   :diminish flycheck-mode
   :init (global-flycheck-mode)
@@ -459,7 +427,6 @@
   (delete 'elpy-module-highlight-indentation elpy-modules)
   (delete 'elpy-module-flymake elpy-modules))
 
-;; golang config
 (use-package go-mode
   :mode ("\\.go\\'" . go-mode)
   :config
@@ -594,7 +561,6 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
 (setq org-src-fontify-natively t)
-
 
 (use-package deadgrep)
 
