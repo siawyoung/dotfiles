@@ -105,6 +105,17 @@
 
 (setq explicit-shell-file-name "/usr/local/bin/zsh")
 
+;; make C-d do evil-scroll-down instead of comint-delchar-or-maybe-eof
+;; in comint/shell-mode
+(with-eval-after-load 'comint
+  (define-key comint-mode-map "\C-d" nil)
+  (define-key comint-mode-map "\C-r" 'counsel-shell-history))
+
+(add-hook 'shell-mode-hook 'my-shell-mode-hook)
+(defun my-shell-mode-hook ()
+  (setq comint-input-ring-file-name "~/.zsh_history")  ;; or bash_history
+  (comint-read-input-ring t))
+
 ;; org-mode
 (use-package org
   :mode ("\\.org\\'" . org-mode)
@@ -204,11 +215,6 @@
     (setq-default evil-escape-key-sequence "jk")
     (setq-default evil-escape-unordered-key-sequence t)
     (evil-escape-mode)))
-
-;; make C-d do evil-scroll-down instead of comint-delchar-or-maybe-eof
-;; in comint/shell-mode
-(with-eval-after-load 'comint
-  (define-key comint-mode-map "\C-d" nil))
 
 (use-package centered-cursor-mode
   :diminish centered-cursor-mode
