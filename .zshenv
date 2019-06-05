@@ -11,6 +11,11 @@ export PATH="$GOROOT/bin:$PATH"
 export PATH="$HOME/.gotools:$PATH"
 export PATH="$GOPATH/src/github.com/carousell/carousell-go/commons/tools:$PATH"
 
+# docker config
+alias d="docker"
+alias dc="docker-compose"
+alias dm="docker-machine"
+
 # python config
 export PYTHONSTARTUP="$HOME/.pythonstartup"
 
