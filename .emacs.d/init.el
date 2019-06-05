@@ -113,7 +113,8 @@
 
 (add-hook 'shell-mode-hook 'my-shell-mode-hook)
 (defun my-shell-mode-hook ()
-  (setq comint-input-ring-file-name "~/.zsh_history")  ;; or bash_history
+  "Add shell history back to zsh history."
+  (setq comint-input-ring-file-name "~/.zsh_history")
   (comint-read-input-ring t))
 
 ;; org-mode
