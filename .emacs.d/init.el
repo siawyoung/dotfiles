@@ -306,6 +306,7 @@
     (save-some-buffers t)
     (magit-status))
   ;; find all git projects using magit
+  (setq magit-branch-prefer-remote-upstream t)
   (setq magit-repository-directories
         '(("~/github/" . 1)
           ("~/github/go/src/github.com/carousell/" . 1))))
