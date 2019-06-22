@@ -220,7 +220,17 @@
 (use-package centered-cursor-mode
   :diminish centered-cursor-mode
   :init
-  (add-hook 'after-init-hook 'global-centered-cursor-mode))
+  (add-hook 'after-init-hook 'global-centered-cursor-mode)
+  ;; disable in terminal modes
+  ;; http://stackoverflow.com/a/6849467/519736
+  ;; also disable in Info mode, because it breaks going back with the backspace key
+  :config
+  (define-global-minor-mode my-global-centered-cursor-mode centered-cursor-mode
+    (lambda ()
+      (when (not (memq major-mode
+                       (list 'Info-mode 'term-mode 'eshell-mode 'shell-mode 'erc-mode)))
+        (centered-cursor-mode))))
+  (my-global-centered-cursor-mode 1))
 
 ;; smart-mode-line
 (use-package smart-mode-line
