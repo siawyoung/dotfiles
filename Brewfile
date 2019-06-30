@@ -35,7 +35,6 @@ brew 'protobuf'
 
 # k8s
 brew 'kubernetes-cli'
-cask 'minikube'
 brew 'kubectx'
 
 # utilities
@@ -59,7 +58,6 @@ cask 'google-chrome'
 cask 'iterm2'
 cask 'java'
 cask 'karabiner-elements'
-cask 'nvalt'
 cask 'omnifocus'
 cask 'postgres'
 cask 'postman'
