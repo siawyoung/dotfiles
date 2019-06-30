@@ -1,26 +1,19 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; ~/.doom.d/packages.el
 
-(package! evil-escape)
-(package! git-link)
+(package! exec-path-from-shell)
 (package! forge)
+(package! git-link)
 
-;;; language-specific
-(package! dockerfile-mode)
+;;; language/syntax-specific packages
 (package! json-mode)
 (package! protobuf-mode)
 
-;;; golang
-(package! go-mode)
+;; :lang/go
+(package! go-playground)
 
-;;; python
-(package! elpy)
-(package! py-autopep8)
-(package! pyimpsort)
-
-;;; javascript
-(package! js2-mode)
-(package! rjsx-mode)
+;; :lang/javascript
 (package! prettier-js)
-(package! add-node-modules-path)
-(package! eslintd-fix)
+
+;; :lang/python
+(package! lsp-python-ms)
