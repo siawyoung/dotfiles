@@ -27,6 +27,22 @@ export PATH="$PATH:$HOME/bin"
 export NEWLINE=$'\n'
 export PROMPT="%/${NEWLINE}$ "
 
+# pyenv config
+export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+eval "$(pyenv init -)"
+
+# Disable pip if you're not in a virtualenv
+export PIP_REQUIRE_VIRTUALENV=true
+# Define a new gpip function for pip install in non-virtualenv python
+gpip() {
+    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+# rbenv config
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 ### Added by Zplugin's installer
 source '/Users/siawyoung/.zplugin/bin/zplugin.zsh'
 autoload -Uz _zplugin
@@ -35,6 +51,7 @@ autoload -Uz _zplugin
 
 # fzf
 zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # init direnv
 # https://github.com/zdharma/zplugin/wiki/Direnv-explanation
