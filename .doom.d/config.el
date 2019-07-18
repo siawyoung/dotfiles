@@ -38,6 +38,38 @@
   :diminish
   :config
   (pyenv-mode))
+
+(def-package! js2-mode
+  :config
+  ;; Try to highlight most ECMA built-ins
+  (setq js2-highlight-level 3)
+  (setq js2-mode-show-parse-errors t)
+  (setq js2-mode-show-strict-warnings nil)
+  (setq js2-strict-missing-semi-warning nil)
+  (setq flycheck-javascript-eslint-executable "eslint_d"))
+
+(def-package! eslintd-fix)
+
+(def-package! prettier-js
+  :hook ((js2-mode . prettier-js-mode)
+         (rjsx-mode . prettier-js-mode)))
+
+(use-package add-node-modules-path
+  :hook ((js2-mode . add-node-modules-path)
+         (rjsx-mode . add-node-modules-path)))
+
+(after! forge
+  ;; I have way too many unread github notifications, running this will hang Emacs for days
+  (setq forge-pull-notifications nil))
+
+(after! persistent-scratch
+  (persistent-scratch-setup-default)
+  (setq persistent-scratch-autosave-mode 1))
+
+(add-hook 'go-mode-hook (lambda()
+                          (add-hook 'before-save-hook #'gofmt-before-save)
+                          (setq gofmt-command "goimports")))
+
 (load! "+theming")
 (load! "+navigation")
 (load! "+vc")
