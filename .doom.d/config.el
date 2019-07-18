@@ -1,7 +1,7 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 (setq user-full-name "Lau Siaw Young"
-      user-mail-address "lausiawyoung@gmail.com"
+      user-mail-address "sy@siawyoung.com"
       epa-file-encrypt-to user-mail-address)
 
 ;;; When starting up, maximize the window
@@ -29,6 +29,7 @@
   (define-key evil-insert-state-map (kbd "C-c C-c") 'company-complete))
 
 (after! flycheck
+  ;; only flycheck on save, disable all other events
   (setq flycheck-check-syntax-automatically '(save)))
 
 (def-package! lsp-python-ms
@@ -41,7 +42,6 @@
 
 (def-package! js2-mode
   :config
-  ;; Try to highlight most ECMA built-ins
   (setq js2-highlight-level 3)
   (setq js2-mode-show-parse-errors t)
   (setq js2-mode-show-strict-warnings nil)
