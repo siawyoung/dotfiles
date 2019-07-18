@@ -21,8 +21,15 @@
   (setq size-indication-mode nil)
   (setq mode-line-percent-position nil)
   (setq line-number-mode nil))
+
 (after! company
-  (setq company-idle-delay 0.2))
+  ;; disable automatic company suggestions, instead
+  (setq company-idle-delay nil)
+  ;; define custom keymapping for showing autocompletes
+  (define-key evil-insert-state-map (kbd "C-c C-c") 'company-complete))
+
+(after! flycheck
+  (setq flycheck-check-syntax-automatically '(save)))
 
 (def-package! lsp-python-ms
   :hook (python-mode . lsp))
