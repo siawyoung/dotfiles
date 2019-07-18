@@ -19,6 +19,10 @@
 (def-package! lsp-python-ms
   :hook (python-mode . lsp))
 
+(def-package! pyenv-mode
+  :diminish
+  :config
+  (pyenv-mode))
 (load! "+theming")
 (load! "+navigation")
 (load! "+vc")
