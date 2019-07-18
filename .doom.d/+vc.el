@@ -15,5 +15,8 @@
         '(("~/github/" . 1)
           ("~/github/go/src/github.com/carousell/" . 1))))
 
+(after! git-link
+  (setq git-link-use-commit t))
+
 ;; reload buffers if changes happen in buffers due to git
 (global-auto-revert-mode 1)
