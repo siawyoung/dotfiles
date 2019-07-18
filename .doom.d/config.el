@@ -13,6 +13,14 @@
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-copy-env "GOROOT"))
 
+(global-visual-line-mode t)
+
+(after! doom-modeline
+  (setq doom-modeline-checker-simple-format nil)
+  (setq doom-modeline-buffer-encoding nil)
+  (setq size-indication-mode nil)
+  (setq mode-line-percent-position nil)
+  (setq line-number-mode nil))
 (after! company
   (setq company-idle-delay 0.2))
 
