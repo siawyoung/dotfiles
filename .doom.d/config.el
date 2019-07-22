@@ -13,7 +13,7 @@
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-copy-env "GOROOT"))
 
-(global-visual-line-mode t)
+(add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
 
 (after! doom-modeline
   (setq doom-modeline-checker-simple-format nil)
