@@ -24,3 +24,4 @@
 ;; :lang/python
 (package! lsp-python-ms)
 (package! pyenv-mode)
+(package! python-black)

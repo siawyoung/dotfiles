@@ -13,10 +13,11 @@
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-copy-env "GOROOT"))
 
+(global-so-long-mode 1)
+
 (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
 
 (after! doom-modeline
-  (setq doom-modeline-checker-simple-format nil)
   (setq doom-modeline-buffer-encoding nil)
   (setq size-indication-mode nil)
   (setq mode-line-percent-position nil)
@@ -39,6 +40,8 @@
   :diminish
   :config
   (pyenv-mode))
+
+(def-package! python-black)
 
 (def-package! js2-mode
   :config
