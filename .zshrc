@@ -30,6 +30,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # for bins installed in alternative manners (not homebrew, etc)
 export PATH="$PATH:$HOME/bin"
 
+# for texinfo
+export PATH="/usr/local/opt/texinfo/bin:$PATH"
+
+# for source installed emacs
+# ln -s $HOME/github/emacs/nextstep/Emacs.app/Contents/MacOS/Emacs /usr/local/bin/emacs
+export PATH="$HOME/github/emacs/nextstep/Emacs.app/Contents/MacOS/bin:$PATH"
+
 # i don't need any fancy themes, just give me pwd
 export NEWLINE=$'\n'
 export PROMPT="%/${NEWLINE}$ "
