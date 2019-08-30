@@ -2,6 +2,13 @@
 export HISTFILE=/Users/siawyoung/.zsh_history
 export HISTSIZE=999999999
 export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+
 
 export EDITOR="emacsclient -nw"
 
