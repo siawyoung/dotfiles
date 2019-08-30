@@ -74,3 +74,9 @@ zplugin light direnv/direnv
 
 zplugin ice "rupa/z" pick"z.sh"; zplugin light "rupa/z"
 zplugin load changyuheng/fz
+
+zplugin ice wait"0" lucid blockf
+zplugin light zsh-users/zsh-completions
+
+zplugin ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
+zplugin light zdharma/fast-syntax-highlighting
