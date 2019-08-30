@@ -23,6 +23,29 @@
   (setq mode-line-percent-position nil)
   (setq line-number-mode nil))
 
+(map!
+ "s-f"  #'swiper-isearch
+ "s-t"  #'+ivy/projectile-find-file
+ (:leader
+   :desc "Find file in project"  "SPC"  #'counsel-projectile-switch-project)
+ (:when (featurep! :completion ivy)
+        (:after ivy
+          :map ivy-minibuffer-map
+          ;; essentially, s-f s-f to resume your search
+          "s-f"   #'previous-history-element
+          ;; next-history-element will take the sexp under the cursor
+          ;; if search field is empty
+          "s-d"   #'next-history-element
+          ;; open search results in a separate buffer
+          "C-o"   #'ivy-occur)))
+
+(setq counsel-find-file-ignore-regexp
+        (concat
+         ;; File names beginning with # or .
+         "\\(?:\\`[#.]\\)"
+         ;; File names ending with # or ~
+         "\\|\\(?:\\`.+?[#~]\\'\\)"))
+
 (after! company
   ;; disable automatic company suggestions, instead
   (setq company-idle-delay nil)
