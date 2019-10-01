@@ -21,7 +21,8 @@
   (setq doom-modeline-buffer-encoding nil)
   (setq size-indication-mode nil)
   (setq mode-line-percent-position nil)
-  (setq line-number-mode nil))
+  (setq line-number-mode nil)
+  (setq column-number-mode nil))
 
 (map!
  "s-f"  #'swiper-isearch
@@ -56,8 +57,16 @@
   ;; only flycheck on save, disable all other events
   (setq flycheck-check-syntax-automatically '(save)))
 
+;; (def-package! lsp-python-ms
+;;   :hook (python-mode . lsp))
+
 (def-package! lsp-python-ms
-  :hook (python-mode . lsp))
+  :config
+  (setq lsp-enable-snippet nil)
+  :hook
+  (python-mode . (lambda ()
+                        (require 'lsp-python-ms)
+                        (lsp))))
 
 (def-package! pyenv-mode
   :diminish
@@ -77,10 +86,11 @@
 (def-package! eslintd-fix)
 
 (def-package! prettier-js
-  :hook ((js2-mode . prettier-js-mode)
+  :hook
+  ((js2-mode . prettier-js-mode)
          (rjsx-mode . prettier-js-mode)))
 
-(use-package add-node-modules-path
+(def-package! add-node-modules-path
   :hook ((js2-mode . add-node-modules-path)
          (rjsx-mode . add-node-modules-path)))
 
