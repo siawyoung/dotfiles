@@ -24,6 +24,8 @@
   (setq line-number-mode nil)
   (setq column-number-mode nil))
 
+(setq doom-themes-treemacs-enable-variable-pitch nil)
+
 (map!
  "s-f"  #'swiper-isearch
  "s-t"  #'+ivy/projectile-find-file
@@ -57,8 +59,7 @@
   ;; only flycheck on save, disable all other events
   (setq flycheck-check-syntax-automatically '(save)))
 
-;; (def-package! lsp-python-ms
-;;   :hook (python-mode . lsp))
+(setq python-shell-interpreter "python")
 
 (def-package! lsp-python-ms
   :config
@@ -88,11 +89,16 @@
 (def-package! prettier-js
   :hook
   ((js2-mode . prettier-js-mode)
-         (rjsx-mode . prettier-js-mode)))
+   (typescript-mode . prettier-js-mode)
+   (rjsx-mode . prettier-js-mode)))
 
 (def-package! add-node-modules-path
   :hook ((js2-mode . add-node-modules-path)
+         (typescript-mode . add-node-modules-path)
          (rjsx-mode . add-node-modules-path)))
+
+;; associate .tsx files with typescript-mode
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
 
 (after! forge
   ;; I have way too many unread github notifications, running this will hang Emacs for days
