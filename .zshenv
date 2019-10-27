@@ -30,11 +30,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export NEWLINE=$'\n'
 export PROMPT="%/${NEWLINE}$ "
 
-# python config
-export PYENV_ROOT="$HOME/.pyenv"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-eval "$(pyenv init -)"
-
 # Disable pip if you're not in a virtualenv
 export PIP_REQUIRE_VIRTUALENV=true
 # Define a new gpip function for pip install in non-virtualenv python
