@@ -1,22 +1,48 @@
-# https://spraoi.ai/articles/how-did-we-fix-python-interpretors-readline-issue-in-mojave/
+# -*- coding: utf-8 -*-
+#
+# https://bcb.github.io/python/mac-repl-readline
+# https://gist.github.com/wbotelhos/46c37807c834ccb5bb406e426adfe347#gistcomment-2932973
 
-# Add auto-completion and a stored history file of commands to your Python
-# interactive interpreter. Requires Python 2.0+, readline. Autocomplete is
-# bound to the Esc key by default (you can change it - see readline docs).
+'''
+to get rid of the
 
-import atexit
-import os
-import gnureadline
-import rlcompleter
+Warning (python): Your ‘python-shell-interpreter’ doesn’t seem to support readline,
+yet 'python-shell-completion-native-enable' was t and "python" is not part of the
+'python-shell-completion-native-disabled-interpreters' list.  Native completions
+have been disabled locally.
 
-historyPath = os.path.expanduser("~/.pyhistory")
+$ cd /Users/siawyoung/.pyenv/versions/3.7.0/lib/python3.7/lib-dynload
+$ sudo mv readline.cpython-37m-darwin.so readline.cpython-37m-darwin.so.bak
+'''
 
-def save_history(historyPath=historyPath):
-    import gnureadline
-    gnureadline.write_history_file(historyPath)
+try:
+    import readline
+    import atexit
+    import os
+    import sys
+    import time
+    import platform
+    import gnureadline as readline
+except ImportError as exception:
+    print('Shell Enhancement module problem: {0}'.format(exception))
+else:
+    # Enable Tab Completion
+    # OSX's bind should only be applied with legacy readline.
+    if sys.platform == 'darwin' and 'libedit' in readline.__doc__:
+        readline.parse_and_bind("bind ^I rl_complete")
+    else:
+        readline.parse_and_bind("tab: complete")
 
-if os.path.exists(historyPath):
-    gnureadline.read_history_file(historyPath)
+    # Enable History File
+    history_file = os.environ.get(
+        "PYTHON_HISTORY_FILE", os.path.join(os.environ['HOME'],
+        '.pythonhistory'))
 
-atexit.register(save_history)
-del os, atexit, gnureadline, rlcompleter, save_history, historyPath
+    if os.path.isfile(history_file):
+        readline.read_history_file(history_file)
+    else:
+        open(history_file, 'a').close()
+
+    atexit.register(readline.write_history_file, history_file)
+    print('Loaded ~/pythonstartup.py.')
+    time.sleep(2)
