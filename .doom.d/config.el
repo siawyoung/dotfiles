@@ -42,12 +42,13 @@
           ;; open search results in a separate buffer
           "C-o"   #'ivy-occur)))
 
+(after! counsel
 (setq counsel-find-file-ignore-regexp
         (concat
          ;; File names beginning with # or .
          "\\(?:\\`[#.]\\)"
          ;; File names ending with # or ~
-         "\\|\\(?:\\`.+?[#~]\\'\\)"))
+         "\\|\\(?:\\`.+?[#~]\\'\\)")))
 
 (after! company
   ;; disable automatic company suggestions, instead
@@ -59,13 +60,13 @@
   ;; only flycheck on save, disable all other events
   (setq flycheck-check-syntax-automatically '(save)))
 
-(setq python-shell-interpreter "python")
 
 (def-package! lsp-python-ms
   :config
   (setq lsp-enable-snippet nil)
   :hook
   (python-mode . (lambda ()
+                        (setq python-shell-interpreter "python")
                         (require 'lsp-python-ms)
                         (lsp))))
 
@@ -75,6 +76,20 @@
   (pyenv-mode))
 
 (def-package! python-black)
+
+(map!
+ "C-c C-x" #'python-shell-switch-to-shell
+ "C-c C-a" #'run-python)
+
+(with-eval-after-load 'python
+  (defun python-shell-completion-native-try ()
+    "Return non-nil if can trigger native completion."
+    (let ((python-shell-completion-native-enable t)
+          (python-shell-completion-native-output-timeout
+           python-shell-completion-native-try-output-timeout))
+      (python-shell-completion-native-get-completions
+       (get-buffer-process (current-buffer))
+       nil "_"))))
 
 (def-package! js2-mode
   :config
