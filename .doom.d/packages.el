@@ -16,6 +16,9 @@
 ;; :lang/go
 (package! go-playground)
 
+;; :lang/html
+(package! emmet-mode)
+
 ;; :lang/javascript
 (package! eslintd-fix)
 (package! add-node-modules-path)

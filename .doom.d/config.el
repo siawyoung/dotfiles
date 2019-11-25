@@ -61,7 +61,7 @@
   (setq flycheck-check-syntax-automatically '(save)))
 
 
-(def-package! lsp-python-ms
+(use-package! lsp-python-ms
   :config
   (setq lsp-enable-snippet nil)
   :hook
@@ -70,12 +70,12 @@
                         (require 'lsp-python-ms)
                         (lsp))))
 
-(def-package! pyenv-mode
+(use-package! pyenv-mode
   :diminish
   :config
   (pyenv-mode))
 
-(def-package! python-black)
+(use-package! python-black)
 
 (map!
  "C-c C-x" #'python-shell-switch-to-shell
@@ -91,7 +91,7 @@
        (get-buffer-process (current-buffer))
        nil "_"))))
 
-(def-package! js2-mode
+(use-package! js2-mode
   :config
   (setq js2-highlight-level 3)
   (setq js2-mode-show-parse-errors t)
@@ -99,15 +99,15 @@
   (setq js2-strict-missing-semi-warning nil)
   (setq flycheck-javascript-eslint-executable "eslint_d"))
 
-(def-package! eslintd-fix)
+(use-package! eslintd-fix)
 
-(def-package! prettier-js
+(use-package! prettier-js
   :hook
   ((js2-mode . prettier-js-mode)
    (typescript-mode . prettier-js-mode)
    (rjsx-mode . prettier-js-mode)))
 
-(def-package! add-node-modules-path
+(use-package! add-node-modules-path
   :hook ((js2-mode . add-node-modules-path)
          (typescript-mode . add-node-modules-path)
          (rjsx-mode . add-node-modules-path)))
@@ -122,10 +122,17 @@
 (after! persistent-scratch
   (persistent-scratch-setup-default)
   (setq persistent-scratch-autosave-mode 1))
-
 (add-hook 'go-mode-hook (lambda()
                           (add-hook 'before-save-hook #'gofmt-before-save)
                           (setq gofmt-command "goimports")))
+
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
+(after! emmet
+  (setq emmet-expand-jsx-className? t))
+
+(map!
+ "C-c C-b" #'emmet-expand-line)
 
 (load! "+theming")
 (load! "+navigation")

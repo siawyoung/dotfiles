@@ -9,8 +9,6 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 
-export EDITOR="emacsclient -nw"
-
 alias rzsh="source ~/.zshrc"
 
 # set all locales to UTF8
@@ -31,7 +29,7 @@ export NEWLINE=$'\n'
 export PROMPT="%/${NEWLINE}$ "
 
 # Disable pip if you're not in a virtualenv
-export PIP_REQUIRE_VIRTUALENV=true
+export PIP_REQUIRE_VIRTUALENV=false
 # Define a new gpip function for pip install in non-virtualenv python
 gpip() {
     PIP_REQUIRE_VIRTUALENV="" pip "$@"
