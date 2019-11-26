@@ -134,6 +134,11 @@
 (map!
  "C-c C-b" #'emmet-expand-line)
 
+(map!
+ "M-g j" #'dumb-jump-go
+ "M-g b" #'dumb-jump-back
+ "M-g o" #'dumb-jump-go-other-window)
+
 (load! "+theming")
 (load! "+navigation")
 (load! "+vc")
