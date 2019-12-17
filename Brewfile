@@ -1,10 +1,8 @@
 cask_args appdir: '/Applications'
-tap 'caskroom/cask'
 tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'neovim/neovim'
-tap 'caskroom/versions'
 tap 'domt4/autoupdate'
 
 # basic needs
@@ -27,7 +25,7 @@ brew 'ntfs-3g'
 
 # local services
 brew 'postgresql'
-brew 'redis', restart_service: true
+brew 'redis'
 brew 'sqlite'
 
 # grpc and protobuf
@@ -47,12 +45,11 @@ brew 'youtube-dl'
 
 # casks
 cask '1password'
+cask 'anki'
 cask 'appcleaner'
 cask 'backblaze'
 cask 'bettertouchtool'
-cask 'discord'
 cask 'docker'
-cask 'emacs'
 cask 'firefox-developer-edition'
 cask 'google-chrome'
 cask 'iterm2'
@@ -61,7 +58,10 @@ cask 'karabiner-elements'
 cask 'omnifocus'
 cask 'postgres'
 cask 'postman'
+cask 'ripcord'
+cask 'simplenote'
 cask 'slack'
+cask 'soulver'
 cask 'spectacle'
 cask 'spotify'
 cask 'sublime-text'
@@ -69,3 +69,4 @@ cask 'telegram'
 cask 'the-unarchiver'
 cask 'transmission'
 cask 'tunnelblick'
+cask 'zoomus'
