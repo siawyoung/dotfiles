@@ -59,7 +59,7 @@ export PATH="$PATH:$HOME/bin"
 export PATH="/usr/local/opt/texinfo/bin:$PATH"
 
 # for source installed emacs
-# ln -s $HOME/github/emacs/nextstep/Emacs.app/Contents/MacOS/Emacs /usr/local/bin/emacs
+ln -sf $HOME/github/emacs/nextstep/Emacs.app/Contents/MacOS/Emacs /usr/local/bin/emacs
 export PATH="$HOME/github/emacs/nextstep/Emacs.app/Contents/MacOS/bin:$PATH"
 
 # docker config
