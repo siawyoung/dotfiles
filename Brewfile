@@ -21,7 +21,6 @@ brew 'tmux'
 brew 'wget'
 brew 'zsh'
 cask 'osxfuse'
-brew 'ntfs-3g'
 
 # local services
 brew 'postgresql'
