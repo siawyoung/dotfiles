@@ -15,6 +15,9 @@
 
 (global-so-long-mode 1)
 
+;; save recent files every 300 seconds
+(run-at-time (current-time) 300 'recentf-save-list)
+
 (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
 
 (after! doom-modeline
