@@ -62,10 +62,6 @@ export PATH="/usr/local/opt/texinfo/bin:$PATH"
 # ln -s $HOME/github/emacs/nextstep/Emacs.app/Contents/MacOS/Emacs /usr/local/bin/emacs
 export PATH="$HOME/github/emacs/nextstep/Emacs.app/Contents/MacOS/bin:$PATH"
 
-# rbenv config
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
 # docker config
 alias d="docker"
 alias dc="docker-compose"
