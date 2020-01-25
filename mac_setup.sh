@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# install Xcode in app store
+# xcode
+
 # Mac-specific commands. Some of these require a restart/logout.
 
 # Remove all extraneous icons from the Dock
@@ -21,3 +24,7 @@ defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
 
 # Change trackpad tracking speed
 defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
+
+# Change key repeat rate
+defaults write -g InitialKeyRepeat -int 12
+defaults write -g KeyRepeat -int 2
