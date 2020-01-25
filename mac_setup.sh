@@ -14,6 +14,11 @@ defaults write com.apple.dock orientation -string left; killall Dock
 # Resize the dock
 defaults write com.apple.dock tilesize -int 36; killall Dock
 
+# Hide the dock
+defaults write com.apple.dock autohide -bool true && killall Dock
+defaults write com.apple.dock autohide-delay -float 5 && killall Dock
+defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock
+
 # Enable three-finger drag (requires restart)
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 1
