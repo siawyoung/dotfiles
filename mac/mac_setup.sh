@@ -30,10 +30,17 @@ defaults write -g InitialKeyRepeat -int 12
 defaults write -g KeyRepeat -int 2
 
 # Install brew
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+which -s brew
+if [[ $? != 0 ]] ; then
+    # Install Homebrew
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 # bundle everything in the brew file
-brew bundle
+brew bundle --file=$HOME/dotfiles/mac/Brewfile
+
+# Stow
+stow doom zsh git
 
 # Install zinit
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
