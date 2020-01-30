@@ -26,7 +26,6 @@ export PROMPT="%/${NEWLINE}$ "
 # for bins installed in alternative manners (not homebrew, etc)
 export PATH="$PATH:$HOME/bin"
 
-[ -f .zinit_packages ] && source .zinit_packages
 [ -f .zsh_mac ] && source .zsh_mac
 
 ### Added by Zinit's installer
@@ -41,3 +40,5 @@ source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit installer's chunk
+
+[ -f .zinit_packages ] && source .zinit_packages
