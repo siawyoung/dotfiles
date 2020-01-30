@@ -5,6 +5,7 @@ tap 'daviderestivo/emacs-head'
 # basic needs
 brew 'direnv'
 brew 'emacs-head', args: ['HEAD', 'with-cocoa', 'with-modern-icon-sexy-v2']
+brew 'fzf'
 brew 'git'
 brew 'go'
 brew 'hub'
@@ -37,3 +38,4 @@ cask 'spectacle'
 cask 'spotify'
 cask 'telegram'
 cask 'transmission'
+

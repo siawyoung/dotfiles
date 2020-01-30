@@ -1,5 +1,6 @@
 # fzf
-zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # init direnv
@@ -11,6 +12,7 @@ zinit load changyuheng/fz
 
 zinit ice wait"0" lucid blockf
 zinit light zsh-users/zsh-completions
+zinit light zdharma/fast-syntax-highlighting
 
 zinit ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
 

@@ -63,6 +63,8 @@ if [ ! $SHELL == $(which zsh) ] ; then
     sudo chsh -s $(which zsh)
 fi
 
+$(brew --prefix)/opt/fzf/install
+
 # put casks which prompt for password at the end, not sure how to remove
 # the need for passwords entirely since sudo brew isn't supported anymore
 brew bundle --file=$HOME/dotfiles/mac/Brewfile-sudo
