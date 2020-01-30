@@ -1,6 +1,6 @@
 cask_args appdir: '/Applications'
-tap homebrew/cask-versions
-tap daviderestivo/emacs-head
+tap 'homebrew/cask-versions'
+tap 'daviderestivo/emacs-head'
 
 # basic needs
 brew 'direnv'
