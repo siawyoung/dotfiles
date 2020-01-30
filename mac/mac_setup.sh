@@ -32,12 +32,10 @@ defaults write -g KeyRepeat -int 2
 # Install brew
 which -s brew
 if [[ $? != 0 ]] ; then
-    # Install Homebrew
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 brew bundle --file=$HOME/dotfiles/mac/Brewfile
-sudo brew bundle --file=$HOME/dotfiles/mac/Brewfile-sudo
 
 # Stow
 stow doom zsh git karabiner
@@ -48,8 +46,23 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/i
 # Install some Pythons
 pyenv install 3.8.0
 
+#####
+##### From here on, things require sudo
+#####
+
 # Install some Nodes
 # we need to do this since brew no longer chowns /usr/local
-sudo mkdir /usr/local/n
-sudo chown -R $(whoami) /usr/local/n
+if [ ! -d "/usr/local/n" ] ; then
+    sudo mkdir /usr/local/n
+    sudo chown -R $(whoami) /usr/local/n
+fi
 n lts
+
+if [ ! $SHELL == $(which zsh) ] ; then
+    sudo sh -c "echo $(which zsh) >> /etc/shells"
+    sudo chsh -s $(which zsh)
+fi
+
+# put casks which prompt for password at the end, not sure how to remove
+# the need for passwords entirely since sudo brew isn't supported anymore
+brew bundle --file=$HOME/dotfiles/mac/Brewfile-sudo
