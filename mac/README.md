@@ -5,5 +5,7 @@ different boostrap process, or find some way to share the common bits.
 
 1. Install Xcode
 2. Install Command Line Tools
-3. Git clone this repository.
-4.
+3. Agree to agreement
+4. Git clone this repository into your home folder (`~/dotfiles`)
+5. `cd` to `dotfiles`
+6. Boot karabiner

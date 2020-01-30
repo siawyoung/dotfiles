@@ -36,11 +36,11 @@ if [[ $? != 0 ]] ; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# bundle everything in the brew file
 brew bundle --file=$HOME/dotfiles/mac/Brewfile
+sudo brew bundle --file=$HOME/dotfiles/mac/Brewfile-sudo
 
 # Stow
-stow doom zsh git
+stow doom zsh git karabiner
 
 # Install zinit
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
@@ -49,4 +49,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/i
 pyenv install 3.8.0
 
 # Install some Nodes
+# we need to do this since brew no longer chowns /usr/local
+sudo mkdir /usr/local/n
+sudo chown -R $(whoami) /usr/local/n
 n lts
