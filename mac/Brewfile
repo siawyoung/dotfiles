@@ -1,0 +1,41 @@
+cask_args appdir: '/Applications'
+brew tap homebrew/cask-versions
+brew tap daviderestivo/emacs-head
+
+# basic needs
+brew 'direnv'
+brew 'emacs-head', args: ['HEAD', 'with-cocoa', 'with-modern-icon-sexy-v2']
+brew 'git'
+brew 'go'
+brew 'hub'
+brew 'n'
+brew 'neovim'
+brew 'pandoc'
+brew 'pyenv'
+brew 'pyenv-virtualenv'
+brew 'python'
+brew 'rbenv'
+brew 'reattach-to-user-namespace'
+brew 'ripgrep'
+brew 'stow'
+brew 'syncthing', restart_service: true
+brew 'wget'
+brew 'yarn'
+brew 'youtube-dl'
+brew 'zsh'
+
+# casks
+cask '1password'
+cask 'anki'
+cask 'appcleaner'
+cask 'bettertouchtool'
+cask 'docker'
+cask 'firefox-developer-edition'
+cask 'google-chrome'
+cask 'java'
+cask 'joplin'
+cask 'karabiner-elements'
+cask 'spectacle'
+cask 'spotify'
+cask 'telegram'
+cask 'transmission'

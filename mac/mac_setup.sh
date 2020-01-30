@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# install Xcode in app store
-# xcode
-
-# Mac-specific commands. Some of these require a restart/logout.
-
 # Remove all extraneous icons from the Dock
 defaults delete com.apple.dock persistent-apps; killall Dock
 
@@ -33,3 +28,18 @@ defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
 # Change key repeat rate
 defaults write -g InitialKeyRepeat -int 12
 defaults write -g KeyRepeat -int 2
+
+# Install brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# bundle everything in the brew file
+brew bundle
+
+# Install zinit
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+
+# Install some Pythons
+pyenv install 3.8.0
+
+# Install some Nodes
+n lts

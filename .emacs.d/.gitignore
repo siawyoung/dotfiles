@@ -1,9 +1,0 @@
-# emacs gitignore as a whitelist
-
-*
-
-!.gitignore
-!init.el
-
-# personal snippets
-!/snippets/

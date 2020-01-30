@@ -1,0 +1,18 @@
+# fzf
+zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# init direnv
+zinit ice from"gh-r" as"program" mv"direnv* -> direnv" atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv"
+zinit light direnv/direnv
+
+zinit ice "rupa/z" pick"z.sh"; zinit light "rupa/z"
+zinit load changyuheng/fz
+
+zinit ice wait"0" lucid blockf
+zinit light zsh-users/zsh-completions
+
+zinit ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: if-err-nil
-# key: ien
-# --
-
-if err != nil {
-   $1
-}

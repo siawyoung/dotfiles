@@ -35,23 +35,13 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 
-# https://superuser.com/questions/623217/how-to-pull-into-multiple-branches-at-once-with-git
-# update master and stage together
 [alias]
-    sync = "!sh -c 'git checkout --quiet --detach HEAD && \
-                    git fetch origin master:master stage:stage ; \
-                    git checkout --quiet -'"
-
     fresh = "!sh -c 'git sync && \
                      git checkout master && \
                      git checkout -b $1' -"
 
-    mstage = "!sh -c 'branch=$(git rev-parse --abbrev-ref HEAD); \
-                      git sync && \
-                      git checkout stage && \
-                      git merge $branch' -"
-
     recent = "!sh -c 'git for-each-ref --sort=-committerdate refs/heads/ \
-        --format=\"%(committerdate:short) %(authorname) %(refname:short)\"'"
+    --format=\"%(committerdate:short) %(authorname) %(refname:short)\"'"
+
 [github]
 	user = siawyoung
