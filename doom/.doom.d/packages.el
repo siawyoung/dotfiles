@@ -14,16 +14,18 @@
 (package! protobuf-mode)
 
 ;; :lang/go
-(package! go-playground)
+;; (package! go-playground)
 
 ;; :lang/html
 (package! emmet-mode)
 
 ;; :lang/javascript
-(package! eslintd-fix)
 (package! add-node-modules-path)
 (package! prettier-js)
+;; remove stuff from doom's js layer that i don't need
 (package! coffee-mode :disable t)
+(package! js2-refactor :disable t)
+(package! nodejs-repl :disable t)
 
 ;; :lang/python
 (package! lsp-python-ms)

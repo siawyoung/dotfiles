@@ -71,6 +71,8 @@ fi
 if [[ !$SKIP_DOOM == 1 ]] ; then
     git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
     ~/.config/emacs/bin/doom install
+    rm -rf ~/.emacs.d
+    ln -s ~/.config/emacs ~/.emacs.d
 fi
 
 #####

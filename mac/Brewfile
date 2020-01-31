@@ -3,14 +3,14 @@ tap 'homebrew/cask-versions'
 tap 'daviderestivo/emacs-head'
 
 # basic needs
+brew 'cmake'
 brew 'direnv'
-brew 'emacs-head', args: ['HEAD', 'with-cocoa', 'with-modern-icon-sexy-v2']
+brew 'emacs-head', args: ['HEAD', 'with-cocoa']
 brew 'fzf'
 brew 'git'
 brew 'go'
 brew 'hub'
 brew 'n'
-brew 'neovim'
 brew 'pandoc'
 brew 'pyenv'
 brew 'pyenv-virtualenv'
