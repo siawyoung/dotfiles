@@ -1,0 +1,7 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+# karabiner automatic backups
+automatic_backups
