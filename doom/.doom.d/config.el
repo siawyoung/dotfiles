@@ -29,6 +29,7 @@
 
 (setq doom-themes-treemacs-enable-variable-pitch nil)
 
+(if IS-MAC
 (map!
  "s-f"  #'swiper-isearch
  "s-t"  #'+ivy/projectile-find-file
@@ -44,6 +45,33 @@
           "s-d"   #'next-history-element
           ;; open search results in a separate buffer
           "C-o"   #'ivy-occur)))
+
+(map!
+ "M-f"  #'swiper-isearch
+ "M-t"  #'+ivy/projectile-find-file
+ (:leader
+   :desc "Find file in project"  "SPC"  #'counsel-projectile-switch-project)
+ (:when (featurep! :completion ivy)
+        (:after ivy
+          :map ivy-minibuffer-map
+          ;; essentially, M-f M-f to resume your search
+          "M-f"   #'previous-history-element
+          ;; next-history-element will take the sexp under the cursor
+          ;; if search field is empty
+          "M-d"   #'next-history-element
+          ; open search results in a separate buffer
+          "C-o"   #'ivy-occur)))
+)
+
+(map! :leader
+      :desc "Open deadgrep" "d" #'deadgrep)
+
+(use-package! deadgrep
+  :config
+  (defun deadgrep--format-command-patch (rg-command)
+  "Add --hidden to rg-command."
+  (replace-regexp-in-string "^rg " "rg --hidden " rg-command))
+(advice-add 'deadgrep--format-command :filter-return #'deadgrep--format-command-patch))
 
 (after! counsel
 (setq counsel-find-file-ignore-regexp
