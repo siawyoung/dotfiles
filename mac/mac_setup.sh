@@ -1,49 +1,69 @@
 #!/usr/bin/env bash
 
-# Remove all extraneous icons from the Dock
-defaults delete com.apple.dock persistent-apps; killall Dock
+while [[ "$#" -gt 0 ]]; do case $1 in
+  -b|--skip-brew) SKIP_BREW=1; shift;;
+  -m|--skip-mac) SKIP_MAC=1; shift;;
+  *) echo "Unknown parameter passed: $1"; exit 1;;
+esac; shift; done
 
-# Move the dock position to the left
-defaults write com.apple.dock orientation -string left; killall Dock
 
-# Resize the dock
-defaults write com.apple.dock tilesize -int 36; killall Dock
+if [[ ! $SKIP_MAC == 1 ]] ; then
+    # Remove all extraneous icons from the Dock
+    defaults delete com.apple.dock persistent-apps; killall Dock
 
-# Hide the dock
-defaults write com.apple.dock autohide -bool true && killall Dock
-defaults write com.apple.dock autohide-delay -float 2 && killall Dock
-defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock
+    # Move the dock position to the left
+    defaults write com.apple.dock orientation -string left; killall Dock
 
-# Enable three-finger drag (requires restart)
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 1
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 1
+    # Resize the dock
+    defaults write com.apple.dock tilesize -int 36; killall Dock
 
-# Enable tap to click
-defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
+    # Hide the dock
+    defaults write com.apple.dock autohide -bool true && killall Dock
+    defaults write com.apple.dock autohide-delay -float 2 && killall Dock
+    defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock
 
-# Change trackpad tracking speed
-defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
+    # Enable three-finger drag (requires restart)
+    defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -int 1
+    defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 1
+    defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 1
 
-# Change key repeat rate
-defaults write -g InitialKeyRepeat -int 12
-defaults write -g KeyRepeat -int 2
+    # Enable tap to click
+    defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
 
-# Install brew
-which -s brew
-if [[ $? != 0 ]] ; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    # Change trackpad tracking speed
+    defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
+
+    # Change key repeat rate
+    defaults write -g InitialKeyRepeat -int 12
+    defaults write -g KeyRepeat -int 2
 fi
 
-brew bundle --file=$HOME/dotfiles/mac/Brewfile
+if [[ ! $SKIP_BREW == 1 ]] ; then
+    # Install brew
+    which -s brew
+    if [[ $? != 0 ]] ; then
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+
+    brew bundle --file=$HOME/dotfiles/mac/Brewfile
+
+    ln -s $(brew --prefix)/opt/emacs-hed/Emacs.app /Applications
+    brew services start daviderestivo/emacs-head/emacs-head
+fi
+
+git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+~/.config/emacs/bin/doom install
 
 # Stow
-stow doom zsh git karabiner
+stow doom zsh git
+# symlink the enclosing folder instead
+stow -t ~/ karabiner
 
 # Install zinit
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 
 # Install some Pythons
+pyenv install 2.7.17
 pyenv install 3.8.0
 
 #####
@@ -63,8 +83,10 @@ if [ ! $SHELL == $(which zsh) ] ; then
     sudo chsh -s $(which zsh)
 fi
 
-$(brew --prefix)/opt/fzf/install
 
-# put casks which prompt for password at the end, not sure how to remove
-# the need for passwords entirely since sudo brew isn't supported anymore
-brew bundle --file=$HOME/dotfiles/mac/Brewfile-sudo
+if [[ ! $SKIP_BREW == 1 ]] ; then
+    $(brew --prefix)/opt/fzf/install
+    # put casks which prompt for password at the end, not sure how to remove
+    # the need for passwords entirely since sudo brew isn't supported anymore
+    brew bundle --file=$HOME/dotfiles/mac/Brewfile-sudo
+fi
