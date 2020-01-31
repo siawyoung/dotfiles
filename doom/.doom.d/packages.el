@@ -23,6 +23,7 @@
 (package! eslintd-fix)
 (package! add-node-modules-path)
 (package! prettier-js)
+(package! coffee-mode :disable t)
 
 ;; :lang/python
 (package! lsp-python-ms)

@@ -26,7 +26,12 @@ export PROMPT="%/${NEWLINE}$ "
 # for bins installed in alternative manners (not homebrew, etc)
 export PATH="$PATH:$HOME/bin"
 
-[ -f .zsh_mac ] && source .zsh_mac
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then

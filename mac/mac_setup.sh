@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 while [[ "$#" -gt 0 ]]; do case $1 in
-  -b|--skip-brew) SKIP_BREW=1; shift;;
   -m|--skip-mac) SKIP_MAC=1; shift;;
+  -b|--skip-brew) SKIP_BREW=1; shift;;
+  -d|--skip-doom) SKIP_DOOM=1; shift;;
+  -p|--skip-python) SKIP_PYTHON=1; shift;;
   *) echo "Unknown parameter passed: $1"; exit 1;;
 esac; shift; done
 
@@ -51,9 +53,6 @@ if [[ ! $SKIP_BREW == 1 ]] ; then
     brew services start daviderestivo/emacs-head/emacs-head
 fi
 
-git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
-~/.config/emacs/bin/doom install
-
 # Stow
 stow doom zsh git
 # symlink the enclosing folder instead
@@ -63,8 +62,16 @@ stow -t ~/ karabiner
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 
 # Install some Pythons
+if [[ ! $SKIP_PYTHON == 1 ]] ; then
 pyenv install 2.7.17
 pyenv install 3.8.0
+pyenv global 3.8.0
+fi
+
+if [[ !$SKIP_DOOM == 1 ]] ; then
+    git clone https://github.com/hlissner/doom-emacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+fi
 
 #####
 ##### From here on, things require sudo
@@ -82,7 +89,6 @@ if [ ! $SHELL == $(which zsh) ] ; then
     sudo sh -c "echo $(which zsh) >> /etc/shells"
     sudo chsh -s $(which zsh)
 fi
-
 
 if [[ ! $SKIP_BREW == 1 ]] ; then
     $(brew --prefix)/opt/fzf/install
