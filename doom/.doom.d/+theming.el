@@ -1,8 +1,7 @@
 ;;; ~/.doom.d/theming.el -*- lexical-binding: t; -*-
 
-(setq doom-font (font-spec :family "SF Mono" :size 16))
-
 (when IS-MAC
+  (setq doom-font (font-spec :family "SF Mono" :size 16))
   (setq ns-use-thin-smoothing t))
 
 (load-theme 'doom-vibrant t)
