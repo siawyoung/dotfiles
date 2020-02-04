@@ -1,0 +1,42 @@
+startup_message off
+
+escape C-z
+
+set ignorehints on
+set padding 0 0 0 0
+set barborder 0
+set border 0
+# sensible window names
+set winname class
+set waitcursor 0
+set msgwait 2
+set startup_message 0
+
+# toggle between 2 most recently used
+definekey top M-Tab exec ~/rpscripts/appjump
+
+# switch to any window with rofi
+definekey top s-w exec ~/rpscripts/window_select
+
+# for important apps, define top-level hotkeys
+definekey top s-1 exec ~/rpscripts/app_select firefox
+definekey top s-2 exec ~/rpscripts/app_select emacs
+definekey top s-z exec ~/rpscripts/app_select telegram
+definekey top s-s exec ~/rpscripts/app_select joplin
+definekey top s-a exec ~/rpscripts/app_select anki
+
+# window movement
+definekey top s-h focusleft
+definekey top s-j focusdown
+definekey top s-k focusup
+definekey top s-l focusright
+
+# Emacs-like window management
+bind 0 remove
+bind 1 only
+bind 2 split
+bind 3 hsplit
+
+bind b exec ~/rpscripts/battery
+bind equal time
+

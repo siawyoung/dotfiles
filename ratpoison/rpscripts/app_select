@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+function is_running
+{
+    PID=$(pidof -s -x "$1")
+
+    if [[ $PID != "" ]]
+    then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function launch_emacs
+{
+    if is_running 'emacs';
+    then
+        ratpoison -c "select emacs"
+    else
+        emacsclient -ca emacs&
+    fi
+}
+
+function launch_firefox
+{
+    if is_running 'firefox';
+    then
+        ratpoison -c "select firefox"
+    else
+        firefox&
+    fi
+}
+
+
+function launch_telegram
+{
+    if is_running 'telegram';
+    then
+        ratpoison -c "select telegram"
+    else
+        telegram-desktop&
+    fi
+}
+
+function launch_anki
+{
+    if is_running 'anki';
+    then
+        ratpoison -c "select anki"
+    else
+        anki&
+    fi
+}
+
+function launch_joplin
+{
+    if is_running 'joplin';
+    then
+        ratpoison -c "select joplin"
+    else
+        ~/.joplin/Joplin.AppImage&
+    fi
+}
+
+function launch_window_number
+{
+    ratpoison -c "select $1"
+}
+
+case "$1" in
+    'emacs')
+        launch_emacs
+        ;;
+    'firefox')
+        launch_firefox
+        ;;
+    'telegram')
+        launch_telegram
+        ;;
+    'anki')
+        launch_anki
+        ;;
+    'joplin')
+        launch_joplin
+        ;;
+    *)
+        launch_window_number "$1"
+        ;;
+esac
