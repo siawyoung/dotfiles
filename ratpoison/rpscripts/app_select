@@ -14,7 +14,7 @@ function is_running
 
 function launch_emacs
 {
-    if is_running 'emacs';
+    if is_running 'emacs26';
     then
         ratpoison -c "select emacs"
     else
