@@ -18,7 +18,7 @@ function launch_emacs
     then
         ratpoison -c "select emacs"
     else
-        emacsclient -ca emacs&
+        emacsclient -ca emacs &
     fi
 }
 

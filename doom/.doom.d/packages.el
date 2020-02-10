@@ -31,3 +31,12 @@
 (package! lsp-python-ms)
 (package! pyenv-mode)
 (package! python-black)
+
+;; telegram
+(package! telega)
+
+;; :lang/scala
+(package! ensime :disable t)
+
+;; org
+(package! org-journal)

@@ -8,7 +8,7 @@
 (when IS-MAC
   (add-hook 'window-setup-hook #'toggle-frame-maximized))
 
-(when IS-MAC
+(when (or IS-MAC IS-LINUX)
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-copy-env "GOROOT"))
@@ -63,8 +63,10 @@
           "C-o"   #'ivy-occur)))
 )
 
-(map! :leader
-      :desc "Open deadgrep" "d" #'deadgrep)
+(map! (:leader
+        :desc "Open deadgrep" "d" #'deadgrep)
+      (:leader
+        :desc "Open a new vterm" "v" #'vterm))
 
 (use-package! deadgrep
   :config
@@ -174,3 +176,4 @@
 (load! "+navigation")
 (load! "+vc")
 (load! "+functions")
+(load! "+org")
