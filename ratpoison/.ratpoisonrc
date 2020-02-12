@@ -45,4 +45,4 @@ bind equal time
 
 definekey top XF86AudioLowerVolume exec amixer -q sset Master 3%-
 definekey top XF86AudioRaiseVolume exec amixer -q sset Master 3%+
-definekey top XF86AudioMute exec amixer -q sset Master toggle
+definekey top XF86AudioMute exec amixer -D pulse set Master 1+ toggle
