@@ -10,3 +10,5 @@
   (setq org-journal-date-format "%A, %d %B %Y")
   (setq org-journal-file-format (concat (downcase (format-time-string "%Y/%b" (current-time))) ".org"))
   )
+
+(setq org-image-actual-width '(600))
