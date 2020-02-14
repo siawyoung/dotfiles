@@ -10,3 +10,8 @@
 
 (after! evil-escape
   (setq evil-escape-unordered-key-sequence t))
+
+(after! evil
+  (evil-define-key 'visual evil-mc-key-map
+  "A" #'evil-mc-make-cursor-in-visual-selection-end
+  "I" #'evil-mc-make-cursor-in-visual-selection-beg))

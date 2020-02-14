@@ -8,6 +8,7 @@
 (package! persistent-scratch)
 (package! deadgrep)
 (package! key-chord)
+(package! evil-mc)
 
 ;;; language/syntax-specific packages
 (package! json-mode)
