@@ -49,7 +49,7 @@ if [[ ! $SKIP_BREW == 1 ]] ; then
 
     brew bundle --file=$HOME/dotfiles/mac/Brewfile
 
-    ln -s $(brew --prefix)/opt/emacs-hed/Emacs.app /Applications
+    ln -s $(brew --prefix)/opt/emacs-head/Emacs.app /Applications
     brew services start daviderestivo/emacs-head/emacs-head
 fi
 
