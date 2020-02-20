@@ -27,6 +27,7 @@
 (package! coffee-mode :disable t)
 (package! js2-refactor :disable t)
 (package! nodejs-repl :disable t)
+(package! vue-mode)
 
 ;; :lang/python
 (package! lsp-python-ms)

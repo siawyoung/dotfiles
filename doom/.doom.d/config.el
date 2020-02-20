@@ -172,6 +172,9 @@
  "M-g b" #'dumb-jump-back
  "M-g o" #'dumb-jump-go-other-window)
 
+(after! vue-mode
+  (setq mmm-submode-decoration-level 0))
+
 (load! "+theming")
 (load! "+navigation")
 (load! "+vc")
