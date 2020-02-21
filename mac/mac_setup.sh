@@ -55,8 +55,8 @@ fi
 
 # Stow
 stow doom zsh git
-mkdir -p $HOME/.config/karabiner
-stow -t $HOME/.config/karabiner karabiner
+mkdir -p $HOME/.config
+stow -t $HOME/.config karabiner
 
 # Install zinit
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"

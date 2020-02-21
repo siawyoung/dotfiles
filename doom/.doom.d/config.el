@@ -46,7 +46,7 @@
           ;; open search results in a separate buffer
           "C-o"   #'ivy-occur)))
 
-(map!  "C-c C-r" #'rename-buffer)
+(map! "C-c C-r" #'rename-buffer)
 
 (map!
  "M-f"  #'swiper-isearch
