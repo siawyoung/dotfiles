@@ -55,5 +55,7 @@ autoload -Uz _zinit
 
 [ -f $HOME/.zinit_packages ] && source $HOME/.zinit_packages
 
-eval "$(direnv hook zsh)"
+# Load all additional zsh layers (for work, etc)
+for x in "$(ls $HOME/.zshrc_*)"; do source $x; done
 
+eval "$(direnv hook zsh)"
