@@ -53,4 +53,4 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit installer's chunk
 
-[ -f .zinit_packages ] && source .zinit_packages
+[ -f $HOME/.zinit_packages ] && source $HOME/.zinit_packages
