@@ -54,3 +54,6 @@ autoload -Uz _zinit
 ### End of Zinit installer's chunk
 
 [ -f $HOME/.zinit_packages ] && source $HOME/.zinit_packages
+
+eval "$(direnv hook zsh)"
+
