@@ -5,3 +5,6 @@ tmp/
 
 # karabiner automatic backups
 automatic_backups
+
+# brewfile lock
+Brewfile.lock.json
