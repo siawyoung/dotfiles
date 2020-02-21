@@ -8,3 +8,5 @@ automatic_backups
 
 # brewfile lock
 Brewfile.lock.json
+
+flycheck_config.elc
