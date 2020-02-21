@@ -9,6 +9,7 @@
 (package! deadgrep)
 (package! key-chord)
 (package! evil-mc)
+(package! git-auto-commit-mode)
 
 ;;; language/syntax-specific packages
 (package! json-mode)
