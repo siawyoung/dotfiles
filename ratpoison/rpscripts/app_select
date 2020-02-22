@@ -14,11 +14,11 @@ function is_running
 
 function launch_emacs
 {
-    if is_running 'emacs26';
+    if is_running 'emacsclient';
     then
         ratpoison -c "select emacs"
     else
-        emacsclient -ca emacs &
+        emacsclient -ca 'emacs'
     fi
 }
 
