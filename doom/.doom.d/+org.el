@@ -16,3 +16,13 @@
  "C-c j" #'org-journal-new-entry)
 
 (setq org-image-actual-width '(600))
+
+(use-package! org-projectile
+  :config
+  (setq org-projectile-projects-file (concat org-directory "work/work.org"))
+  (push (org-projectile-project-todo-entry) org-capture-templates)
+  (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
+
+(map!
+ "C-c n p" #'org-projectile-project-todo-completing-read
+ "C-c n o" #'org-projectile-goto-location-for-project)

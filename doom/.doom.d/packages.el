@@ -43,3 +43,4 @@
 
 ;; org
 (package! org-journal)
+(package! org-projectile)
