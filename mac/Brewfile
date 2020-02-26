@@ -21,7 +21,6 @@ brew 'ripgrep'
 brew 'stow'
 brew 'syncthing', restart_service: true
 brew 'wget'
-brew 'yarn'
 brew 'youtube-dl'
 brew 'zsh'
 
