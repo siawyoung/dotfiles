@@ -12,6 +12,8 @@ set waitcursor 0
 set msgwait 2
 set startup_message 0
 
+exec ~/.xinitrc
+
 alias screenshot-to-clipboard  exec maim -s | xclip -selection clipboard -t image/png
 definekey top SunPrint_Screen screenshot-to-clipboard
 

@@ -56,6 +56,14 @@ autoload -Uz _zinit
 [ -f $HOME/.zinit_packages ] && source $HOME/.zinit_packages
 
 # Load all additional zsh layers (for work, etc)
-for x in "$(ls $HOME/.zshrc_*)"; do source $x; done
+# don't throw error if no glob matches found
+setopt NULL_GLOB
+for x in "$(ls $HOME/.zshrc_*)";
+    do if [[ $x ]]; then
+        source $x;
+    fi
+done
+unsetopt NULL_GLOB
+
 
 eval "$(direnv hook zsh)"

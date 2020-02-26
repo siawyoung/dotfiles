@@ -177,6 +177,10 @@
 (after! vue-mode
   (setq mmm-submode-decoration-level 0))
 
+(after! git-auto-commit-mode
+  (setq gac-automatically-add-new-files-p nil)
+  (setq gac-automatically-push-p t))
+
 (load! "+theming")
 (load! "+navigation")
 (load! "+vc")
