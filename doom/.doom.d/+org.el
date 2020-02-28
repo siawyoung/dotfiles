@@ -2,6 +2,7 @@
 
 (setq org-startup-folded nil)
 (setq org-catch-invisible-edits 'smart)
+(setq org-log-done t)
 
 ;; org-journal
 (use-package! org-journal
@@ -19,7 +20,7 @@
 
 (use-package! org-projectile
   :config
-  (setq org-projectile-projects-file (concat org-directory "work/work.org"))
+  (setq org-projectile-projects-file (concat org-directory "work/"))
   (push (org-projectile-project-todo-entry) org-capture-templates)
   (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
 
