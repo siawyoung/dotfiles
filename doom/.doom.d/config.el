@@ -68,7 +68,9 @@
 (map! (:leader
         :desc "Open deadgrep" "d" #'deadgrep)
       (:leader
-        :desc "Open a new vterm" "v" #'vterm))
+        :desc "Open a new vterm" "v" #'vterm)
+      (:leader
+        :desc "Open ranger" "r" #'ranger))
 
 (use-package! deadgrep
   :config
