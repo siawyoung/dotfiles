@@ -4,6 +4,10 @@
 (setq org-catch-invisible-edits 'smart)
 (setq org-log-done t)
 
+(set-register ?t (cons 'file (concat org-directory "todo.org")))
+(set-register ?a (cons 'file (concat org-directory "articles.org")))
+(set-register ?w (cons 'file (concat org-directory "work/forge.org")))
+
 ;; org-journal
 (use-package! org-journal
   :config
@@ -27,3 +31,8 @@
 (map!
  "C-c n p" #'org-projectile-project-todo-completing-read
  "C-c n o" #'org-projectile-goto-location-for-project)
+
+(add-to-list 'org-capture-templates
+  '("t" "Personal todo" entry
+   (file+headline +org-capture-todo-file "Inbox")
+   "* TODO %?\n%i\n" :prepend t))
