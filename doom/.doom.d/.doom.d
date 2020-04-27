@@ -1,1 +1,0 @@
-/Users/siawyoung/github/dotfiles/.doom.d
