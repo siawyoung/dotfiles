@@ -58,7 +58,7 @@ autoload -Uz _zinit
 # Load all additional zsh layers (for work, etc)
 # don't throw error if no glob matches found
 setopt NULL_GLOB
-for x in "$(ls $HOME/.zshrc_*)";
+for x in $HOME/.zshrc_*;
     do if [[ $x ]]; then
         source $x;
     fi
