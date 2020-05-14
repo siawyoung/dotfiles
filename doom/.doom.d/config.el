@@ -136,8 +136,6 @@
   (setq js2-strict-missing-semi-warning nil)
   (setq flycheck-javascript-eslint-executable "eslint_d"))
 
-(use-package! eslintd-fix)
-
 (use-package! prettier-js
   :hook
   ((js2-mode . prettier-js-mode)
@@ -182,6 +180,11 @@
 (after! git-auto-commit-mode
   (setq gac-automatically-add-new-files-p nil)
   (setq gac-automatically-push-p t))
+
+(after! lsp-ui
+  (add-hook 'scala-mode-hook (lambda()
+                               (lsp-ui-mode)
+                               (lsp-ui-doc-mode))))
 
 (load! "+theming")
 (load! "+navigation")
