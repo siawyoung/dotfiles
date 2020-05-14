@@ -21,7 +21,7 @@ if [[ ! $SKIP_MAC == 1 ]] ; then
 
     # Hide the dock
     defaults write com.apple.dock autohide -bool true && killall Dock
-    defaults write com.apple.dock autohide-delay -float 2 && killall Dock
+    defaults write com.apple.dock autohide-delay -float 0.2 && killall Dock
     defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock
 
     # Enable three-finger drag (requires restart)
