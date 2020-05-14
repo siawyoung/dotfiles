@@ -29,6 +29,9 @@
 
 (setq doom-themes-treemacs-enable-variable-pitch nil)
 
+;; I don't want my lines to be automatically broken
+(auto-fill-mode -1)
+
 (if IS-MAC
 (map!
  "s-f"  #'swiper-isearch
@@ -185,6 +188,7 @@
   (add-hook 'scala-mode-hook (lambda()
                                (lsp-ui-mode)
                                (lsp-ui-doc-mode))))
+
 
 (load! "+theming")
 (load! "+navigation")
