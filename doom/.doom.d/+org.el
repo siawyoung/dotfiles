@@ -11,7 +11,7 @@
 ;; org-journal
 (use-package! org-journal
   :config
-  (setq org-journal-dir (concat org-directory "journal/"))
+  (setq org-journal-dir (concat org-directory "/journal/"))
   (setq org-journal-file-type `monthly)
   (setq org-journal-date-format "%A, %d %B %Y")
   (setq org-journal-file-format (concat (downcase (format-time-string "%Y/%b" (current-time))) ".org"))
@@ -36,3 +36,7 @@
   '("t" "Personal todo" entry
    (file+headline +org-capture-todo-file "Inbox")
    "* TODO %?\n%i\n" :prepend t))
+
+(use-package! org-roam
+  :custom
+  (org-roam-directory org-directory))

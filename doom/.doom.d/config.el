@@ -189,7 +189,6 @@
                                (lsp-ui-mode)
                                (lsp-ui-doc-mode))))
 
-
 (load! "+theming")
 (load! "+navigation")
 (load! "+vc")
