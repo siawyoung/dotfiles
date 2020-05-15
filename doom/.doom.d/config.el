@@ -32,6 +32,10 @@
 ;; I don't want my lines to be automatically broken
 (auto-fill-mode -1)
 
+;; all popups to the side, please
+(set-popup-rules!
+  '(("*" :side right :width 0.25 :slot 1 :vslot 1 :quit nil)))
+
 (if IS-MAC
 (map!
  "s-f"  #'swiper-isearch
@@ -65,8 +69,7 @@
           ;; if search field is empty
           "M-d"   #'next-history-element
           ; open search results in a separate buffer
-          "C-o"   #'ivy-occur)))
-)
+          "C-o"   #'ivy-occur))))
 
 (map! (:leader
         :desc "Open deadgrep" "d" #'deadgrep)
