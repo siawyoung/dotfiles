@@ -32,10 +32,6 @@
 ;; I don't want my lines to be automatically broken
 (auto-fill-mode -1)
 
-;; deadgrep popups to the side
-(set-popup-rules!
-  '(("^\*deadgrep" :side right :width 0.25 :slot 1 :vslot 1 :quit nil)))
-
 (if IS-MAC
 (map!
  "s-f"  #'swiper-isearch
