@@ -32,9 +32,9 @@
 ;; I don't want my lines to be automatically broken
 (auto-fill-mode -1)
 
-;; all popups to the side, please
+;; deadgrep popups to the side
 (set-popup-rules!
-  '(("*" :side right :width 0.25 :slot 1 :vslot 1 :quit nil)))
+  '(("^\*deadgrep" :side right :width 0.25 :slot 1 :vslot 1 :quit nil)))
 
 (if IS-MAC
 (map!
