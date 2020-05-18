@@ -89,6 +89,9 @@
          ;; File names ending with # or ~
          "\\|\\(?:\\`.+?[#~]\\'\\)")))
 
+(map!
+ "C-c n n" #'counsel-org-goto-all)
+
 (after! company
   ;; disable automatic company suggestions, instead
   (setq company-idle-delay nil)
