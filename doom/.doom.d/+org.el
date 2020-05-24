@@ -3,10 +3,10 @@
 (setq org-startup-folded nil)
 (setq org-catch-invisible-edits 'smart)
 (setq org-log-done t)
+(setq work-org (concat org-directory "/work/forge.org"))
 
-(set-register ?t (cons 'file (concat org-directory "todo.org")))
-(set-register ?a (cons 'file (concat org-directory "articles.org")))
-(set-register ?w (cons 'file (concat org-directory "work/forge.org")))
+(setq org-capture-templates
+      '(("w" "Work" entry (file+headline work-org "JIRA") "** TODO %?\nADDED: %T\n\n%i\n\n" :prepend t)))
 
 ;; org-journal
 (use-package! org-journal
