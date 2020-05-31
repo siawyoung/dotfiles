@@ -194,8 +194,12 @@
                                (lsp-ui-doc-mode))))
 
 ;; make C-backspace also behave similarly to C-w in vterm
-(define-key vterm-mode-map (kbd "<C-backspace>")
-  (lambda () (interactive) (vterm-send-key (kbd "C-w"))))
+(after! vterm
+  :config
+  (define-key vterm-mode-map (kbd "<C-backspace>")
+  (lambda () (interactive) (vterm-send-key (kbd "C-w")))))
+
+(setq evil-escape-excluded-major-modes '(neotree-mode treemacs-mode))
 
 (load! "+theming")
 (load! "+navigation")
