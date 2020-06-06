@@ -8,19 +8,9 @@
   (goto-char (point-min))
   (while (search-forward "\n" nil t) (replace-match "" nil t)))
 
-(defun sy/search-vterm()
-  (interactive)
-  (counsel-ibuffer)
-  (ibuffer-filter-disable)
-  (ibuffer-filter-by-mode 'vterm-mode))
-
-(map! "C-c C-v" #'sy/search-vterm)
-
-;; (defun sy/test()
-;;   (interactive)
-;;   (org-journal-new-entry nil)
-;;   (insert ))
-
-;; (minibuffer-with-setup-hook
-;;     (lambda () (insert "BOX DRAWING"))
-;;   (call-interactively 'insert-char))
+(defun unfill-region (start end)
+  "Replace newline chars in region by single spaces.
+This command does the reverse of `fill-region'."
+  (interactive "r")
+  (let ((fill-column most-positive-fixnum))
+    (fill-region start end)))
