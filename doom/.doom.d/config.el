@@ -162,6 +162,7 @@
 (after! persistent-scratch
   (persistent-scratch-setup-default)
   (setq persistent-scratch-autosave-mode 1))
+
 (add-hook 'go-mode-hook (lambda()
                           (add-hook 'before-save-hook #'gofmt-before-save)
                           (setq gofmt-command "goimports")))
@@ -182,6 +183,7 @@
 (after! vue-mode
   (setq mmm-submode-decoration-level 0))
 
+;; for auto committing my org stuff
 (after! git-auto-commit-mode
   (setq gac-automatically-add-new-files-p nil)
   (setq gac-automatically-push-p t))
@@ -190,6 +192,14 @@
   (add-hook 'scala-mode-hook (lambda()
                                (lsp-ui-mode)
                                (lsp-ui-doc-mode))))
+
+;; make C-backspace also behave similarly to C-w in vterm
+(after! vterm
+  :config
+  (define-key vterm-mode-map (kbd "<C-backspace>")
+  (lambda () (interactive) (vterm-send-key (kbd "C-w")))))
+
+(setq evil-escape-excluded-major-modes '(neotree-mode treemacs-mode))
 
 (load! "+theming")
 (load! "+navigation")
