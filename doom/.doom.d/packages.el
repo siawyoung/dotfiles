@@ -41,3 +41,6 @@
 ;; org
 (package! org-journal)
 (package! org-projectile)
+
+;; :lang/graphql
+(package! graphql-mode)
