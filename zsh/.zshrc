@@ -23,6 +23,9 @@ export LC_ALL="en_US.UTF-8"
 export NEWLINE=$'\n'
 export PROMPT="%/${NEWLINE}$ "
 
+# zsh's built in git tab completion
+autoload -Uz compinit && compinit
+
 # for bins installed in alternative manners (not homebrew, etc)
 export PATH="$PATH:$HOME/bin"
 
