@@ -14,6 +14,7 @@
 ;;; language/syntax-specific packages
 (package! json-mode)
 (package! protobuf-mode)
+(package! yaml-mode)
 
 ;; :lang/go
 ;; (package! go-playground)
