@@ -20,13 +20,6 @@
 
 (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
 
-(after! doom-modeline
-  (setq doom-modeline-buffer-encoding nil)
-  (setq size-indication-mode nil)
-  (setq mode-line-percent-position nil)
-  (setq line-number-mode nil)
-  (setq column-number-mode nil))
-
 (setq doom-themes-treemacs-enable-variable-pitch nil)
 
 ;; I don't want my lines to be automatically broken
@@ -200,6 +193,47 @@
   (lambda () (interactive) (vterm-send-key (kbd "C-w")))))
 
 (setq evil-escape-excluded-major-modes '(neotree-mode treemacs-mode))
+
+;; performance related tweaks
+(setq display-line-numbers-type nil)
+(global-hide-mode-line-mode nil)
+(setq scroll-conservatively 0)
+
+(add-hook 'emacs-lisp-mode-hook
+  (lambda()
+    (hl-line-mode -1)
+    (global-hl-line-mode -1))
+  't
+  )
+
+(add-hook 'scala-mode-hook
+  (lambda()
+    (hl-line-mode -1)
+    (global-hl-line-mode -1))
+  't
+  )
+
+(add-hook 'typescript-mode-hook
+  (lambda()
+    (hl-line-mode -1)
+    (global-hl-line-mode -1))
+  't
+  )
+
+(add-hook 'python-mode-hook
+  (lambda()
+    (hl-line-mode -1)
+    (global-hl-line-mode -1))
+  't
+  )
+
+(add-hook 'markdown-mode-hook
+  (lambda()
+    (hl-line-mode -1)
+    (global-hl-line-mode -1))
+  't
+  )
+;; performance related tweaks
 
 (load! "+theming")
 (load! "+navigation")
