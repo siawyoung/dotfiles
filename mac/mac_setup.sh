@@ -54,7 +54,7 @@ if [[ ! $SKIP_BREW == 1 ]] ; then
 fi
 
 # Stow
-stow doom zsh git
+stow doom zsh git psql
 mkdir -p $HOME/.config
 stow -t $HOME/.config karabiner
 
