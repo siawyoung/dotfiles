@@ -4,7 +4,8 @@
   (setq doom-font (font-spec :family "Fira Code" :size 16))
   (setq ns-use-thin-smoothing t))
 
-(load-theme 'doom-vibrant t)
+(when IS-LINUX
+  (setq doom-font (font-spec :family "Ubuntu Mono" :size 22)))
 
 ;; highlight active buffer
 (solaire-global-mode +1)
