@@ -1,5 +1,7 @@
 -- Don't display the "helpful" message on startup.
 \set QUIET 1
+
+-- Make nulls more explicit
 \pset null '[NULL]'
 
 -- PROMPT2 is printed when the prompt expects more input, like when you type
@@ -11,9 +13,21 @@
 
 -- Use best available output format
 \x auto
+
+-- Give more information on errors
 \set VERBOSITY verbose
+
+-- Log psql history
 \set HISTFILE ~/.psql_history- :DBNAME
 \set HISTCONTROL ignoredups
+
+-- Uppercase tab completion
 \set COMP_KEYWORD_CASE upper
+
+-- Add savepoints after every interactive psql command so that badly manually entered commands
+-- don't cause the entire transaction to abort
 \set ON_ERROR_ROLLBACK interactive
 \unset QUIET
+
+-- Load work-specific settings and shortcuts
+\i ~/.psqlrc.local
