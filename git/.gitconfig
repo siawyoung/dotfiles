@@ -40,8 +40,11 @@
                      git checkout master && \
                      git checkout -b $1' -"
 
-    recent = "!sh -c 'git for-each-ref --sort=-committerdate refs/heads/ \
-    --format=\"%(committerdate:short) %(authorname) %(refname:short)\"'"
+    list-recent = "!sh -c 'git for-each-ref --sort=-committerdate refs/heads/ \
+    --format=\"%(refname:short)\"'"
+
+    recent = "!sh -c 'git checkout $(git list-recent | fzf -m)'"
+
 
 [github]
 	user = siawyoung
