@@ -1,6 +1,7 @@
 cask_args appdir: '/Applications'
 tap 'homebrew/cask-versions'
 tap 'daviderestivo/emacs-head'
+tap 'homebrew/cask-fonts'
 
 # basic needs
 brew 'cmake'
@@ -19,7 +20,6 @@ brew 'rbenv'
 brew 'reattach-to-user-namespace'
 brew 'ripgrep'
 brew 'stow'
-brew 'syncthing', restart_service: true
 brew 'wget'
 brew 'youtube-dl'
 brew 'zsh'
@@ -31,10 +31,9 @@ cask 'appcleaner'
 cask 'bettertouchtool'
 cask 'docker'
 cask 'firefox-developer-edition'
-cask 'java'
+cask 'font-fira-code'
 cask 'karabiner-elements'
 cask 'spectacle'
 cask 'spotify'
 cask 'telegram'
 cask 'transmission'
-
