@@ -32,8 +32,6 @@
         added = yellow
         changed = green
         untracked = red
-[url "git@github.com:"]
-	insteadOf = https://github.com/
 
 [alias]
     fresh = "!sh -c 'git sync && \
