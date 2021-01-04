@@ -8,6 +8,7 @@ brew 'cmake'
 brew 'direnv'
 brew 'emacs-head', args: ['HEAD', 'with-cocoa']
 brew 'fzf'
+brew 'gh'
 brew 'git'
 brew 'go'
 brew 'hub'
