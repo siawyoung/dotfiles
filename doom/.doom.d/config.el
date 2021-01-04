@@ -235,6 +235,10 @@
   )
 ;; performance related tweaks
 
+;; workaround for org-mode bug
+;; https://github.com/hlissner/doom-emacs/issues/3172
+(add-hook 'org-mode-hook (lambda () (electric-indent-local-mode -1)))
+
 (load! "+theming")
 (load! "+navigation")
 (load! "+vc")

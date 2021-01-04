@@ -12,8 +12,7 @@
   (setq magit-branch-prefer-remote-upstream t)
   ;; find all git projects using magit
   (setq magit-repository-directories
-        '(("~/github/" . 1)
-          ("~/github/go/src/github.com/carousell/" . 1))))
+        '(("~/code/" . 1))))
 
 (after! git-link
   (setq git-link-use-commit t))
