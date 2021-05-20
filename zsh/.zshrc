@@ -70,3 +70,5 @@ unsetopt NULL_GLOB
 
 
 eval "$(direnv hook zsh)"
+
+eval "$(rbenv init -)"
