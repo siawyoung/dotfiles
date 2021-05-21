@@ -95,3 +95,6 @@ fi
 if [[ ! $SKIP_BREW == 1 ]] ; then
     $(brew --prefix)/opt/fzf/install
 fi
+
+# to get rid of zsh warning, run
+# compaudit | xargs chmod g-w

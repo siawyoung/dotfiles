@@ -3,7 +3,7 @@
         email = sy@siawyoung.com
 
 [credential]
-        helper = osxkeychain
+	helper = store
 
 [push]
 	default = current
