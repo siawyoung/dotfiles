@@ -46,3 +46,5 @@
 
 [github]
 	user = siawyoung
+[pull]
+	default = current
