@@ -239,6 +239,7 @@
 ;; https://github.com/hlissner/doom-emacs/issues/3172
 (add-hook 'org-mode-hook (lambda () (electric-indent-local-mode -1)))
 
+;; https://github.com/hlissner/doom-emacs/issues/5785
 (general-auto-unbind-keys :off)
 (remove-hook 'doom-after-init-modules-hook #'general-auto-unbind-keys)
 
