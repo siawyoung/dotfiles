@@ -1,12 +1,12 @@
 cask_args appdir: '/Applications'
 tap 'homebrew/cask-versions'
-tap 'daviderestivo/emacs-head'
+tap 'd12frosted/emacs-plus'
 tap 'homebrew/cask-fonts'
 
 # basic needs
 brew 'cmake'
 brew 'direnv'
-brew 'emacs-head', args: ['HEAD', 'with-cocoa']
+brew 'emacs-plus@29', args: ['with-xwidgets', 'with-no-titlebar', 'with-imagemagick', 'with-native-comp', 'with-modern-sexy-v1-icon']
 brew 'ext4fuse'
 brew 'fzf'
 brew 'gh'
