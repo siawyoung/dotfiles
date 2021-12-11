@@ -12,7 +12,7 @@ zinit load changyuheng/fz
 
 zinit ice wait"0" lucid blockf
 zinit light zsh-users/zsh-completions
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
 
