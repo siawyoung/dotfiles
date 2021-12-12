@@ -38,6 +38,9 @@ if [[ ! $SKIP_MAC == 1 ]] ; then
     # Change key repeat rate
     defaults write -g InitialKeyRepeat -int 12
     defaults write -g KeyRepeat -int 2
+
+    # Disable default behaviour to select alternative characters with press and hold
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 fi
 
 if [[ ! $SKIP_BREW == 1 ]] ; then
