@@ -54,6 +54,9 @@ if [[ ! $SKIP_BREW == 1 ]] ; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
+    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/sy/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
     brew bundle --file=$HOME/dotfiles/mac/Brewfile
 
     ln -s $(brew --prefix)/opt/emacs-head/Emacs.app /Applications
