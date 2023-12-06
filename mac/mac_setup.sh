@@ -30,17 +30,21 @@ if [[ ! $SKIP_MAC == 1 ]] ; then
     defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 1
 
     # Enable tap to click
-    defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+    defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 
     # Change trackpad tracking speed
     defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
 
     # Change key repeat rate
-    defaults write -g InitialKeyRepeat -int 1defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false2
+    defaults write -g InitialKeyRepeat -int 1
+    defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
     defaults write -g KeyRepeat -int 2
 
     # Disable default behaviour to select alternative characters with press and hold
     defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 fi
 
 if [[ ! $SKIP_BREW == 1 ]] ; then
