@@ -36,7 +36,7 @@ if [[ ! $SKIP_MAC == 1 ]] ; then
     defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
 
     # Change key repeat rate
-    defaults write -g InitialKeyRepeat -int 12
+    defaults write -g InitialKeyRepeat -int 1defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false2
     defaults write -g KeyRepeat -int 2
 
     # Disable default behaviour to select alternative characters with press and hold
@@ -47,7 +47,7 @@ if [[ ! $SKIP_BREW == 1 ]] ; then
     # Install brew
     which -s brew
     if [[ $? != 0 ]] ; then
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
     brew bundle --file=$HOME/dotfiles/mac/Brewfile
@@ -89,6 +89,8 @@ if [ ! -d "/usr/local/n" ] ; then
     sudo chown -R $(whoami) /usr/local/n
 fi
 n lts
+npm install -g wrangler
+npm install -g netlify-cli
 
 if [ ! $SHELL == $(which zsh) ] ; then
     sudo sh -c "echo $(which zsh) >> /etc/shells"

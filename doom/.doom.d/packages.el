@@ -29,7 +29,9 @@
 (package! coffee-mode :disable t)
 (package! js2-refactor :disable t)
 (package! nodejs-repl :disable t)
-(package! vue-mode)
+(package! svelte-mode)
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 
 ;; :lang/python
 (package! lsp-python-ms)
@@ -45,3 +47,5 @@
 
 ;; :lang/graphql
 (package! graphql-mode)
+
+(package! mmm-mode)
