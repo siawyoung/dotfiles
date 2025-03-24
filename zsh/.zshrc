@@ -59,11 +59,6 @@ for x in $HOME/.zshrc_*;
 done
 unsetopt NULL_GLOB
 
-
-eval "$(direnv hook zsh)"
-
-eval "$(rbenv init -)"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # heroku autocomplete setup
@@ -116,3 +111,5 @@ export PATH="$PNPM_HOME:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export GPG_TTY=$(tty)
